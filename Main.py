@@ -3,8 +3,10 @@ from random import seed
 from random import randint
 import os
 import json
+import time
 randnO = 0
 ImgNbR = 0
+randnR = 0
 dir = "./Replacement Images"
 dir_name = "./Original Images (STIPphoto)"
 dir_name2 = "./Replacement Images"
@@ -13,15 +15,17 @@ seed(34587345)
 class Main():
     @staticmethod
     def genintO():
+        global randnO
         for _ in range(1):
             value = randint(0, 131)
             randnO = value
-            print("Random NB genereated:")
+            print("Random NBO genereated:")
             print(randnO)
             MRun.ImgCountR()
 
     @staticmethod
     def ImgCountR():
+        global ImgNbR
         ImgR = next(os.walk(dir))[2]
         print("Number of Replacement Images Counted:")
         ImgNbR = len(ImgR)
@@ -48,7 +52,17 @@ class Main():
             fR.write(file_name)
             fR.write("\n")              
         fR.close()
-        MRun.ImgIMCREX()
+        MRun.genintR()
+    
+    @staticmethod
+    def genintR():
+        global randnR
+        for _ in range(1):
+            value = randint(0, ImgNbR - 1)
+            randnR = value
+            print("Random NBR genereated:")
+            print(randnR)
+            MRun.ImgIMCREX()
 
     @staticmethod
     def ImgIMCREX():
@@ -57,22 +71,33 @@ class Main():
         OImg = f.readlines()
         OImgR = o.readlines()
         OImgO = OImg[randnO].rstrip("\n")
-        OImgRO = OImgR[randnO].rstrip("\n")
+        OImgRO = OImgR[randnR].rstrip("\n")
         im = Image.open("./Original Images (STIPphoto)/" + OImgO)
         imR = Image.open("./Replacement Images/" + OImgRO)
-        (width, height) = (im.width // 2, im.height // 2)
         im.close()
-        imR.resize((width, height))
-        imR.convert("RGB")
-        imR.save("./Images to put in STIPphoto/" + OImgO)
+        imR = imR.resize((425, 320))
+        imR = imR.convert("RGB")
+        if not os.path.exists("./Images to put in STIPphoto/" + OImgO):
+            print("New image saved!")
+            imR.save("./Images to put in STIPphoto/" + OImgO)
+            os.remove("./Replacement Images/" + OImgRO)
+            print("Replacement IMG used deleted!")
+            MRun.reset()
+        print("IMG already exists...")
+        imR.close()
         MRun.reset()
 
     @staticmethod
     def reset():
-        randnO = 0
-        ImgNbR = 0
+        print("Looping")
+        time.sleep(1)
         MRun.genintO()
+        
 
 print("Make sure you have setup the image folders.")
+print("WARNING: After an image is used to replace one in STIPphoto, it is DELETED.")
+print("EXIT NOW if you havent made a backup of these images.")
+print("waiting for 5 seconds...")
+time.sleep(5)
 MRun = Main()
 MRun.genintO()        
