@@ -7,9 +7,12 @@ import time
 randnO = 0
 ImgNbR = 0
 randnR = 0
+tumbnb = 0
+imgst = False
 dir = "./Replacement Images"
 dir_name = "./Original Images (STIPphoto)"
 dir_name2 = "./Replacement Images"
+dir_name3 = "./Images to put in STIPphoto"
 seed(34587345)
 
 class Main():
@@ -66,6 +69,8 @@ class Main():
 
     @staticmethod
     def ImgIMCREX():
+        global OImgO
+        global imgst
         f = open("./IMGFO.txt", "r")
         o = open("./IMGFR.txt", "r")
         OImg = f.readlines()
@@ -78,15 +83,31 @@ class Main():
         imR = imR.resize((425, 320))
         imR = imR.convert("RGB")
         if not os.path.exists("./Images to put in STIPphoto/" + OImgO):
+            imgst = True
             print("New image saved!")
             imR.save("./Images to put in STIPphoto/" + OImgO)
-            os.remove("./Replacement Images/" + OImgRO)
-            print("Replacement IMG used deleted!")
-            MRun.reset()
+            os.remove("./Replacement Images/" + OImgRO) #might wanna replace this with copy but, fuck it.
+            print("Replacement IMG used deleted!") #here copy command: os.popen('copy file1.txt file6.txt')
+            MRun.tumb()
         print("IMG already exists...")
         imR.close()
         MRun.reset()
+    
+    @staticmethod
+    def tumb():
+        print("tumbnail method called")
+        OImgO.rstrip(".jpg")
+        ImgtO = OImgO + "-thumb.jpg"   
+        imt = Image.open("./Images to put in STIPphoto/" + OImgO)
+        imt = imt.resize((120, 90))
+        imt = imt.convert("RGB")
+        imt.save("./Images to put in STIPphoto/Thumbnails/" + ImgtO)
+        print("Tumbnail saved!")
+        imt.close()
+        MRun.reset()
 
+            
+    
     @staticmethod
     def reset():
         print("Looping")
