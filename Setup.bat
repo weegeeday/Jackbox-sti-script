@@ -1,1 +1,1 @@
-pip install Pillow
+pip install -r requirements.txt
