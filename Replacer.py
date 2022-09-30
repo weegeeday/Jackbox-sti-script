@@ -10,7 +10,7 @@ tumbnb = 0
 SeeD = 0
 imgst = False
 dir = "./Replacement Images"
-dir_name = "./Original Images (STIPphoto)"
+dir_name = ""
 dir_name2 = "./Replacement Images"
 dir_name3 = "./Images to put in STIPphoto"
 seed(SeeD)
@@ -86,8 +86,8 @@ class Replacer():
             imgst = True
             print("New image saved!")
             imR.save("./Images to put in STIPphoto/" + OImgO)
-            os.remove("./Replacement Images/" + OImgRO) #might wanna replace this with copy but, fuck it.
-            print("Replacement IMG used deleted!") #here copy command: os.popen('copy file1.txt file6.txt')
+            os.replace("./Replacement Images/" + OImgRO, "./Replacement Images Backup/" + OImgRO)           
+            print("Replacement IMG used moved!")
             MRun.tumb()
         print("IMG already exists...")
         imR.close()
@@ -110,6 +110,7 @@ class Replacer():
     
     @staticmethod
     def reset():
+        print(SeeD)
         print("Looping")
         time.sleep(1)
         MRun.genintO()
