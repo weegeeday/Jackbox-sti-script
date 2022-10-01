@@ -1,14 +1,11 @@
-import argparse
 from json import JSONDecoder
 import json
-import sys
 import time
 import PySimpleGUI as sg
 import os
 import Replacer
 import winreg
 import vdf
-import shutil
 S = 0
 x = 0
 y = 0
