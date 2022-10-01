@@ -115,4 +115,5 @@ class Replacer():
         time.sleep(1)
         MRun.genintO()
     
-MRun = Replacer()   
+MRun = Replacer()
+#MRun = MRun.reset()
