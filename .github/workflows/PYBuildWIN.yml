@@ -42,4 +42,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           pip install PyInstaller
-          pyinstaller GUI.py --noconsole --noconfirm --log-level=WARN --add-data ./README.md --add-data ./Replacement Images --add-data ./Replacement Images/Thumbnails --add-data ./Seed.txt --add-data ./dir_name.txt
+          pyinstaller GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md" --add-data "./Replacement Images" --add-data "./Replacement Images/Thumbnails" --add-data "./Seed.txt" --add-data "./dir_name.txt" --add-data "./Replacement Images" --add-data "./Replacement Images Backup"
