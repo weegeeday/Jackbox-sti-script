@@ -3,6 +3,7 @@ from random import seed
 from random import randint
 import os
 import time
+import PySimpleGUI as sg
 randnO = 0
 ImgNbR = 0
 randnR = 0
@@ -10,10 +11,18 @@ tumbnb = 0
 SeeD = 0
 imgst = False
 dir = "./Replacement Images"
-dir_name = ""
+global dir_name
 dir_name2 = "./Replacement Images"
 dir_name3 = "./Images to put in STIPphoto"
-seed(SeeD)
+fO1 = open("./Seed.txt", "r")
+fO1.readline(1)
+seed(fO1.readline(1))
+fO1.close()
+fO1 = open("./dir_name.txt", "r")
+fO1.readline(1)
+dir_name = fO1.read()
+dir_name = "D" + dir_name
+fO1.close()
 
 class Replacer():
     @staticmethod
@@ -61,11 +70,14 @@ class Replacer():
     def genintR():
         global randnR
         for _ in range(1):
-            value = randint(0, ImgNbR - 1)
-            randnR = value
-            print("Random NBR genereated:")
-            print(randnR)
-            MRun.ImgIMCREX()
+            try:
+                value = randint(0, ImgNbR - 1)
+                randnR = value
+                print("Random NBR genereated:")
+                print(randnR)
+                MRun.ImgIMCREX()
+            except ValueError:
+                sg.popup("Done!")
 
     @staticmethod
     def ImgIMCREX():

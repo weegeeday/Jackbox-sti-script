@@ -22,8 +22,6 @@ global ISDIR
 global x3
 ISDIR = False
 GUID = True
-global dir_name
-dir_name= ""
 SteamLibrary = []
 sg.theme('dark grey 9')
 dir = "./Replacement Images"
@@ -35,7 +33,7 @@ layout = [  [sg.Text('Number of images to insert:' + str(imgC)), sg.Checkbox("De
 layoutS = [  [sg.Text('Please wait attempting to get STI directory.')],
              [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
              [sg.Button('Quit',key='_h2_'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]            
-
+sg.set_options()
 window2 = sg.Window('STI Image Script', layoutS)
 progress_bar = window2['_progressbar_']
 event, values = window2.read(timeout=50)
@@ -150,7 +148,9 @@ except FileNotFoundError:
                 if ISDIR == True:
                     x3 = 10 - x2
                     x4 = x2 + x3/2
-                    x5 = x4 + x3/2 
+                    x5 = x4 + x3/2
+                    z = z - 1
+                    dir_name = str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content\\STIPhoto" 
                     break
                 while ISDIR == False:
                     print("testing dir")
@@ -164,6 +164,7 @@ except FileNotFoundError:
                         print("indexerror")
                         z = z - 1
                         dir_name = str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content\\STIPhoto"
+                        print(dir_name)
                         print("break")
                         raise
     except FileNotFoundError:
@@ -184,8 +185,20 @@ while True:
         break
     if event == 'Run!' and values['_h_'] > str(0) and values['_h_'] != str(0):
         print("helo")
-        Replacer.SeeD = int(values['_h_'])
-        Replacer.dir_name = dir_name
+        fO4 = open("./Seed.txt", "w")
+        fO4.write(str(values['_h_']))
+        fO4.close()
+        fO5 = open("./dir_name.txt", "w")
+        fO5.write(str(dir_name))
+        fO5.close()
+        fO6 = open("./dir_name.txt", "r")
+        filedata2 = fO6.read()
+        fO6.close()
+        time.sleep(0.5)
+        print(filedata2)
+        fO7 = open("./dir_name.txt", "w")
+        fO7.write(filedata2)
+        fO7.close()
         Replacer.Replacer.reset()                                             
     elif event == 'Run!':
         sg.popup('Seed cannot be 0 or empty!')
