@@ -42,4 +42,11 @@ jobs:
       - name: Run a multi-line script
         run: |
           pip install PyInstaller
-          pyinstaller GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md;." --add-data "./Replacement Images;dir" --add-data "./Replacement Images/Thumbnails;dir" --add-data "./Seed.txt;." --add-data "./dir_name.txt;." --add-data "./Replacement Images;dir" --add-data "./Replacement Images Backup;dir"
+          pyinstaller GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md;." --add-data "./Replacement Images;dir" --add-data "./Replacement Images/Thumbnails;dir" --add-data "./Seed.txt;." --add-data "./dir_name.txt;." --add-data "./Replacement Images;dir" --add-data "./Replacement Images Backup;dir" --distpath "./BUILDARTIFACTS" --workpath "./BUILDARTIFACTS"      
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+         # Artifact name
+         name: windows_bin
+         # A file, directory or wildcard pattern that describes what to upload
+         path: ./BUILDARTIFACTS
