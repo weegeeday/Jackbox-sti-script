@@ -42,7 +42,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           pip install PyInstaller
-          pyinstaller GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md;." --add-data "./Replacement Images;dir" --add-data "./Replacement Images/Thumbnails;dir" --add-data "./Seed.txt;." --add-data "./dir_name.txt;." --add-data "./Replacement Images;dir" --add-data "./Replacement Images Backup;dir" --distpath "./BUILDARTIFACTS/dist" --workpath "./BUILDARTIFACTS/build"      
+          pyinstaller GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md;." --add-data "./Replacement Images;Replacement Images" --add-data "./Replacement Images/Thumbnails;Replacement Images/Thumbnails" --add-data "./Seed.txt;." --add-data "./dir_name.txt;." --add-data "./Replacement Images Backup;Replacement Images Backup" --distpath "./BUILDARTIFACTS/dist" --workpath "./BUILDARTIFACTS/build" --hidden-impor "PySimpleGUI"     
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
