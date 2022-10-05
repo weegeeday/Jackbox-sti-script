@@ -11,17 +11,11 @@ tumbnb = 0
 SeeD = 0
 imgst = False
 dir = "./Replacement Images"
-global dir_name
-dir_name2 = "./Replacement Images"
-dir_name3 = "./Images to put in STIPphoto"
+dir_name2 = ".\Replacement Images"
+dir_name3 = ".\Images to put in STIPphoto"
 fO1 = open("./Seed.txt", "r")
 fO1.readline(1)
 seed(fO1.readline(1))
-fO1.close()
-fO1 = open("./dir_name.txt", "r")
-fO1.readline(1)
-dir_name = fO1.read()
-dir_name = "D" + dir_name
 fO1.close()
 
 class Replacer():
@@ -46,13 +40,19 @@ class Replacer():
 
     @staticmethod
     def ImgFilterO():
+        global dir_name
+        global DIR
         fO = open("./IMGFO.txt", "w")
+        DIR = open("./dir_name.txt", "r")
+        dir_name = DIR.read()
+        print(dir_name)
         ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_name, x)),
                         os.listdir(dir_name) ) )
         for file_name in ImgFO:
             fO.write(file_name)
             fO.write("\n")              
         fO.close()
+        DIR.close()
         MRun.ImgFilterR()
 
     @staticmethod
@@ -77,7 +77,8 @@ class Replacer():
                 print(randnR)
                 MRun.ImgIMCREX()
             except ValueError:
-                sg.popup("Done!")
+                print("hello crash")
+                MRun.crash()
 
     @staticmethod
     def ImgIMCREX():
@@ -89,7 +90,7 @@ class Replacer():
         OImgR = o.readlines()
         OImgO = OImg[randnO].rstrip("\n")
         OImgRO = OImgR[randnR].rstrip("\n")
-        im = Image.open("./Original Images (STIPphoto)/" + OImgO)
+        im = Image.open(dir_name +"/" + OImgO)
         imR = Image.open("./Replacement Images/" + OImgRO)
         im.close()
         imR = imR.resize((425, 320))
@@ -123,9 +124,22 @@ class Replacer():
     @staticmethod
     def reset():
         print(SeeD)
-        print("Looping")
-        time.sleep(1)
-        MRun.genintO()
+        ImgR = next(os.walk(dir))[2]
+        if len(ImgR) == 0:
+            print("replacement img count == 0, crashing.")
+            MRun.crash()
+        elif len(ImgR) != 0:
+            print("Looping")
+            time.sleep(1)
+            MRun.genintO()
     
+    @staticmethod
+    def crash():
+        try:
+            print("crashing to return to GUI.py")
+            fR = open("./crash.txt", "r")
+            fR.readlines()
+        except FileNotFoundError:
+            print("hello fillenotfounderror")
 MRun = Replacer()
 #MRun = MRun.reset()
