@@ -44,7 +44,8 @@ jobs:
           pip install PySimpleGUI
           pip install PyInstaller
           pip install Pillow
-          pyinstaller -wF GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md;."  --add-data "./Seed.txt;." --add-data "./dir_name.txt;."  --distpath "./BUILDARTIFACTS/dist" --workpath "./BUILDARTIFACTS/build" --hidden-import tkinter --hidden-import Pillow    
+          pip install vdf
+          pyinstaller -wF GUI.py --noconsole --noconfirm --log-level=WARN --add-data "./README.md;."  --add-data "./Seed.txt;." --add-data "./dir_name.txt;."  --distpath "./BUILDARTIFACTS/dist" --workpath "./BUILDARTIFACTS/build" --hidden-import tkinter --hidden-import Pillow --hidden-import PIL  
       - name: Upload a Build Artifact1
         uses: actions/upload-artifact@v3.1.0
         with:
