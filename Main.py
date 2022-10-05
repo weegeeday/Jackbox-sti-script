@@ -96,8 +96,8 @@ class Main():
     @staticmethod
     def tumb():
         print("tumbnail method called")
-        OImgO.rstrip(".jpg")
-        ImgtO = OImgO + "-thumb.jpg"   
+        OImgO2 = OImgO.rstrip(".jpg")
+        ImgtO = OImgO2 + "-thumb.jpg"   
         imt = Image.open("./Images to put in STIPphoto/" + OImgO)
         imt = imt.resize((120, 90))
         imt = imt.convert("RGB")
