@@ -10,6 +10,13 @@ PREP2 = open("./dir_name.txt", "w")
 PREP2.close()
 PREP3 = open("./Seed.txt", "w")
 PREP3.close()
+try: 
+    os.mkdir("./Replacement Images")
+    os.mkdir("./Replacement Images Backup")
+    os.mkdir("./Images to put in STIPphoto")
+    os.mkdir("./Images to put in STIPphoto/Thumbnails")
+except FileExistsError:
+    print("skipping making folders.")
 import Replacer
 import winreg
 import vdf
@@ -49,7 +56,7 @@ window2 = sg.Window('STI Image Script', layoutS)
 progress_bar = window2['_progressbar_']
 event, values = window2.read(timeout=50)
 try:
-    SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Valv\Steam",reserved=0,access=winreg.KEY_READ)
+    SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Valve\Steam",reserved=0,access=winreg.KEY_READ)
     Linux = False
     progress_bar.Update(x+0.5) #0.5
     SteamINSD = winreg.QueryValueEx(SteamReg, "InstallPath")
@@ -114,7 +121,7 @@ try:
                     raise
 except FileNotFoundError:
     try:
-        SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Wow6432Noe\Valve\Steam",reserved=0,access=winreg.KEY_READ)
+        SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Wow6432Node\Valve\Steam",reserved=0,access=winreg.KEY_READ)
         Linux = False
         progress_bar.Update(x+0.5) #0.5
         SteamINSD = winreg.QueryValueEx(SteamReg, "InstallPath")
@@ -222,27 +229,40 @@ while True:
                 fO5 = open("./dir_name.txt", "w")
                 fO5.write(str(values['_LD_']))
                 fO5.close()
+                fO6 = open("./dir_name.txt", "r")
+                filedata2 = fO6.read()
+                fO6.close()
+                time.sleep(0.5)
+                print(filedata2)
+                fO7 = open("./dir_name.txt", "w")
+                fO7.write(filedata2)
+                fO7.close()
+                Replacer.Replacer.reset()
+                ImgR = next(os.walk(dir))[2]
+                imgC = len(ImgR)
+                window['_y_'].update('Number of images to insert:' + str(imgC))
+                time.sleep(0.5)
+                sg.popup("Done!")        
             elif values['_LD_'] == "":
-                sg.popup("STIPhoto directory cannot be empty!")
-                #crash handling for no dir needed here
+                sg.popup("STIPhoto directory cannot be empty!")               
         elif Linux == False:
             fO5 = open("./dir_name.txt", "w")
             fO5.write(str(dir_name))
             fO5.close()
-        fO6 = open("./dir_name.txt", "r")
-        filedata2 = fO6.read()
-        fO6.close()
-        time.sleep(0.5)
-        print(filedata2)
-        fO7 = open("./dir_name.txt", "w")
-        fO7.write(filedata2)
-        fO7.close()
-        Replacer.Replacer.reset()
-        ImgR = next(os.walk(dir))[2]
-        imgC = len(ImgR)
-        window['_y_'].update('Number of images to insert:' + str(imgC))
-        time.sleep(0.5)
-        sg.popup("Done!")                                             
+            fO6 = open("./dir_name.txt", "r")
+            filedata2 = fO6.read()
+            fO6.close()
+            time.sleep(0.5)
+            print(filedata2)
+            fO7 = open("./dir_name.txt", "w")
+            fO7.write(filedata2)
+            fO7.close()
+            Replacer.Replacer.reset()
+            ImgR = next(os.walk(dir))[2]
+            imgC = len(ImgR)
+            window['_y_'].update('Number of images to insert:' + str(imgC))
+            time.sleep(0.5)
+            sg.popup("Done!")                                             
     elif event == 'Run!':
         sg.popup('Seed cannot be 0 or empty!')
     if event == 'Use Default':

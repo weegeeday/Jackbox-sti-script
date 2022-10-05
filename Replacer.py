@@ -46,14 +46,19 @@ class Replacer():
         DIR = open("./dir_name.txt", "r")
         dir_name = DIR.read()
         print(dir_name)
-        ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_name, x)),
+        try:
+            ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_name, x)),
                         os.listdir(dir_name) ) )
-        for file_name in ImgFO:
-            fO.write(file_name)
-            fO.write("\n")              
-        fO.close()
-        DIR.close()
-        MRun.ImgFilterR()
+            for file_name in ImgFO:
+                fO.write(file_name)
+                fO.write("\n")              
+            fO.close()
+            DIR.close()
+            MRun.ImgFilterR()
+        except FileNotFoundError:
+            print("invalid dir.")
+            sg.popup("Invalid directory was set!")           
+            MRun.crash()
 
     @staticmethod
     def ImgFilterR():
@@ -109,8 +114,8 @@ class Replacer():
     @staticmethod
     def tumb():
         print("tumbnail method called")
-        OImgO.rstrip(".jpg")
-        ImgtO = OImgO + "-thumb.jpg"   
+        OImgO2 = OImgO.rstrip(".jpg")
+        ImgtO = OImgO2 + "-thumb.jpg"   
         imt = Image.open("./Images to put in STIPphoto/" + OImgO)
         imt = imt.resize((120, 90))
         imt = imt.convert("RGB")
