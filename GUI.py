@@ -1,7 +1,6 @@
 from json import JSONDecoder
 import json
 import time
-from tkinter.tix import TEXT
 import PySimpleGUI as sg
 import os
 PREP1 = open("./Library.json", "w")
@@ -59,35 +58,41 @@ ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
                         os.listdir(dir) ) )
 ImgFO = ['']
 ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_')],
-            [sg.Text('Seed for randomness:'), sg.InputText('',key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
+            [sg.Text('Seed for randomness:',key='_SeedT_'), sg.InputText(key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Button('Run|', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit?', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Button('Quit',key='_h2_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
-ToolRRLinux = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y2_'), sg.Checkbox("Dev",key='_DCH_',visible=True)],
+ToolRRLinux = [  [sg.Text('Nb of img to insert=' + str(imgC),key='_y2_'), sg.Checkbox("Dev",key='_DCH_',visible=True)],
             [sg.Text("STIPhoto directory:"), sg.InputText('',key='_LD_')],
-            [sg.Text('Seed for randomness:'), sg.InputText('',key='_h1_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.Button('GUILibSettings',visible=False,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
+            [sg.Text('Seed for randomnes=',key='_SeedT2_'), sg.InputText('',key='_h1_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R_'), sg.Button('quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q_'), sg.Button('GUILibSettings',visible=False,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
-ToolSR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y3_')],
-            [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE"),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE")], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
+ToolSR = [  [sg.Text('Nb of images to insert:' + str(imgC),key='_y3_')],
+            [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_'),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Button('Run', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Exit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_')] ]
 
 ToolFR = ToolRR
-SelectedTool = ToolRR
+SelectedTool = ToolFR
 
-ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10))],
+ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
-               [sg.Canvas(background_color="#121212",size=(10,10))],
+               [sg.Canvas(background_color="#121212",size=(10,10),key='_c2_')],
                [sg.Button(key='_SR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=SRIcon)],
-               [sg.Canvas(background_color="#121212",size=(10,10))],
+               [sg.Canvas(background_color="#121212",size=(10,10),key='_c3_')],
                [sg.Button(key='_S_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=SIcon)],
-               [sg.Canvas(background_color="#121212",size=(10,10))],
+               [sg.Canvas(background_color="#121212",size=(10,10),key='_c4_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
                [sg.Tab("a",ToolFR,visible=False),sg.Tab("b",ToolSR,visible=False)]  ]
 
 layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedTool, element_justification='c')]]
 
+print("layout= " + str(layout))
+print("ToolSR= " + str(ToolSR))
+print("ToolRR= " + str(ToolRR))
+print("ToolRRLinux= " + str(ToolRRLinux))
+print("ToolSelect= " + str(ToolSelect))
+print("layoutLOAD= " + str(layoutLOAD))
 window2 = sg.Window('STI Image Script', layoutLOAD)
 progress_bar = window2['_progressbar_']
 event, values = window2.read(timeout=50)
