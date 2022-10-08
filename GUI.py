@@ -58,19 +58,18 @@ ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
                         os.listdir(dir) ) )
 ImgFO = ['']
 ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_')],
-            [sg.Text('Seed for randomness:',key='_SeedT_'), sg.InputText(key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run|', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit?', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
+            [sg.Text('Seed for randomness:',key='_Seed_'), sg.InputText(key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Button('Start!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_S_'), sg.Button('Quit?', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Button('Quit',key='_h2_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
-ToolRRLinux = [  [sg.Text('Nb of img to insert=' + str(imgC),key='_y2_'), sg.Checkbox("Dev",key='_DCH_',visible=True)],
+ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_Ylinux_'), sg.Checkbox("Dev",key='_DCH_',visible=True)],
             [sg.Text("STIPhoto directory:"), sg.InputText('',key='_LD_')],
-            [sg.Text('Seed for randomnes=',key='_SeedT2_'), sg.InputText('',key='_h1_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R_'), sg.Button('quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q_'), sg.Button('GUILibSettings',visible=False,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
+            [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hLinux_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SLinux_'), sg.Button('quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q_'), sg.Button('GUILibSettings',visible=False,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
-ToolSR = [  [sg.Text('Nb of images to insert:' + str(imgC),key='_y3_')],
-            [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_'),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Exit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_')] ]
+ToolSR = [  [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_'),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Button('Replace!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Exit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_')] ]
 
 ToolFR = ToolRR
 SelectedTool = ToolFR
