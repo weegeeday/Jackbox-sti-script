@@ -59,17 +59,20 @@ ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
 ImgFO = ['']
 ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_')],
             [sg.Text('Seed for randomness:',key='_Seed_'), sg.InputText(key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Start!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_S_'), sg.Button('Quit?', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
+            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
-                [sg.Button('Quit',key='_h2_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
-ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_Ylinux_'), sg.Checkbox("Dev",key='_DCH_',visible=True)],
+                [sg.Button('Quit',key='_Q_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
+ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_Ylinux_')],
             [sg.Text("STIPhoto directory:"), sg.InputText('',key='_LD_')],
             [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hLinux_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SLinux_'), sg.Button('quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q_'), sg.Button('GUILibSettings',visible=False,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
+            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
 ToolSR = [  [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_'),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Replace!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Exit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_')] ]
+            [sg.Button('Replace!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
+ToolO = [ [sg.Text("hello")] ]
+
+ToolI = [ [sg.Text("hello")] ]
 
 ToolFR = ToolRR
 SelectedTool = ToolFR
@@ -82,7 +85,7 @@ ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_S_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=SIcon)],
                [sg.Canvas(background_color="#121212",size=(10,10),key='_c4_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
-               [sg.Tab("a",ToolFR,visible=False),sg.Tab("b",ToolSR,visible=False)]  ]
+                 ]
 
 layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedTool, element_justification='c')]]
 
@@ -236,8 +239,6 @@ except FileNotFoundError:
         x4 = x2 + x3/2
         x5 = x4 + x3/2
         z = z - 1
-ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_name, x)),
-                        os.listdir(dir_name) ) )
 time.sleep(0.5)
 progress_bar.Update(x4)
 time.sleep(0.5)
@@ -257,18 +258,14 @@ while True:
     ImgR = next(os.walk(dir))[2]
     imgC = len(ImgR)
     if Linux == True:
-        window["_DCH_"].update(visible=True)
-        window['GUILibSettings'].update(visible=True)
         window['_y2_'].update('Number of images to insert:' + str(imgC))
         window.refresh()
     elif Linux == False:
-        window["_DCH_"].update(visible=False)
-        window['GUILibSettings'].update(visible=False)
         window['_y_'].update('Number of images to insert:' + str(imgC))
         window.refresh()
-    if event == sg.WIN_CLOSED or event == 'Quit': # if user closes window or clicks cancel
+    if event == sg.WIN_CLOSED or event == '_Q_' or event == '_Q1_' or event == '_Q2_' or event == '_Q3_' : # if user closes window or clicks cancel
         break
-    if event == 'Run!' and values['_h_'] > str(0) and values['_h_'] != str(0):
+    if event == '_R_' or event == '_R1_' and values['_h_'] > str(0) and values['_h_'] != str(0):
         print("helo")
         if Linux == True:
             if values['_LD_'] != "":
@@ -312,44 +309,42 @@ while True:
             Replacer.Replacer.reset()
             time.sleep(0.5)
             sg.popup("Done!")                                             
-    elif event == 'Run!':
+    elif event == '_R_' or event == '_R1_':
         sg.popup('Seed cannot be 0 or empty!')
-    if event == 'Use Default':
+    if event == '_D_' or event == '_D1_':
         Replacer.SeeD = 34587345
         values[0] = str(34587345)
         print(values[0])
         window['_h_'].update(values[0])
-    if values['_DCH_'] == True:
-       window['GUILibSettings'].update(visible=True)
-       window.refresh()
-    if values['_DCH_'] == False:
-           window['GUILibSettings'].update(visible=False)
-           window.refresh()
     if event == 'GUILibSettings':
         sg.main_global_pysimplegui_settings()
     if event == '_RR_':
-        SelectedTool = ToolSR
+        SelectedTool = ToolFR
+        print("selected tool FR")
         window['_RR_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
         window.refresh()
     if event == '_SR_':
-        SelectedTool = ToolFR
+        SelectedTool = ToolSR
+        print("selected tool SR")
         window['_SR_'].update(button_color="#323232")
         window['_RR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
         window.refresh()
     if event == '_S_':
-        SelectedTool = ToolFR
+        SelectedTool = ToolO
+        print("selected tool O")
         window['_S_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window.open()
+        window.refresh()
     if event == '_I_':
-        SelectedTool = ToolFR
+        SelectedTool = ToolI
+        print("selected tool I")
         window['_I_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
