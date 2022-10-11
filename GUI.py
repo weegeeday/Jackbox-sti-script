@@ -63,7 +63,7 @@ ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_')],
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Button('Quit',key='_Q_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
-ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_Ylinux_')],
+ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yLinux_')],
             [sg.Text("STIPhoto directory:"), sg.InputText('',key='_LD_')],
             [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hLinux_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
             [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
@@ -87,7 +87,7 @@ ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
                  ]
 
-layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedTool, element_justification='c')]]
+layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedTool, element_justification='c',key='_ToolVC_')]]
 
 print("layout= " + str(layout))
 print("ToolSR= " + str(ToolSR))
@@ -164,7 +164,7 @@ try:
                     raise
 except FileNotFoundError:
     try:
-        SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Wow6432Node\Valve\Steam",reserved=0,access=winreg.KEY_READ)
+        SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Wow643Node\Valve\Steam",reserved=0,access=winreg.KEY_READ)
         Linux = False
         progress_bar.Update(x+0.5) #0.5
         SteamINSD = winreg.QueryValueEx(SteamReg, "InstallPath")
@@ -249,16 +249,22 @@ if Linux == True:
     ToolFR = ToolRRLinux
     SelectedTool = ToolFR
     window = sg.Window('STI Image Script Linux/MacOSX', layout,size=(800,250))
+    event, values = window.read()
+    window['_ToolVC_'].update(layout)
+    window.refresh()
 elif Linux == False:
     ToolFR = ToolRR
     SelectedTool = ToolFR
     window = sg.Window('STI Image Script Windows', layout,size=(800,250))
+    event, values = window.read()
+    window['_ToolVC_'].update(layout)
+    window.refresh()
 while True:
     event, values = window.read(timeout=50)
     ImgR = next(os.walk(dir))[2]
     imgC = len(ImgR)
     if Linux == True:
-        window['_y2_'].update('Number of images to insert:' + str(imgC))
+        window['_yLinux_'].update('Nb of img to insert:' + str(imgC)) #issue with keys, cant find _yLinux_, while it does indeed exsist. could be issue of layout inside of layout.
         window.refresh()
     elif Linux == False:
         window['_y_'].update('Number of images to insert:' + str(imgC))
@@ -270,7 +276,7 @@ while True:
         if Linux == True:
             if values['_LD_'] != "":
                 fO4 = open("./Seed.txt", "w")
-                fO4.write(str(values['_h1_']))
+                fO4.write(str(values['_hLinux_']))
                 fO4.close()
                 fO5 = open("./dir_name.txt", "w")
                 fO5.write(str(values['_LD_']))
@@ -325,7 +331,7 @@ while True:
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window.refresh()
+        window['_ToolVC_'].update(layout)
     if event == '_SR_':
         SelectedTool = ToolSR
         print("selected tool SR")
@@ -333,7 +339,7 @@ while True:
         window['_RR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window.refresh()
+        window['_ToolVC_'].update(layout)
     if event == '_S_':
         SelectedTool = ToolO
         print("selected tool O")
@@ -341,7 +347,7 @@ while True:
         window['_SR_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window.refresh()
+        window['_ToolVC_'].update(layout)
     if event == '_I_':
         SelectedTool = ToolI
         print("selected tool I")
@@ -349,5 +355,5 @@ while True:
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
-        window.refresh()
+        window['_ToolVC_'].update(layout)
 window.close()
