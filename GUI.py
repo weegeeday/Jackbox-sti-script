@@ -31,10 +31,10 @@ SteamST = ""
 SteamINS = ""
 Library = ""
 z = 0
+global layout
 global ISDIR
 global x3
 global Linux
-global SelectedTool
 global ToolFR
 global SelectedToolBU
 RRIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAQVQTFRFAAAAIdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8////////////////////////////////////////////////////////////////////IdF8IdF8////////////////////////////////GZ5dHrhtHrluHrdt////////////////////AAAAC0InF41TC0EmHrdtIdF8E3pIE3tJFHtIHKplFHpIHrhu////IdF8F5RXF5NXAAAAC0MnF41TC0InFolRGZtcHrluGZhaGZhaEF84AAAAHK5nFYNNE3FDHK9oHK5nGqJg////////vsxuNwAAAFd0Uk5TAClmzHoUXP+PUuDCcNaZoxA/DkAwIJC/r/83/sCAoLDvH+twX39QT2/wYN+rqqvQ3+DPnwFLqUysRxkZlv+Wq489vL0CJVUlLe7/7fN9C7WphLP++gEEFMFrdwAAAwlJREFUeJztlWlb00AQx1cQKyB1a7JpV7ObSJrCBmoO8BbFW+tt0e//UZzZpJA2WRoPHnh8+n/Rbmf2+M3s7JSQhRb6r3VpaRl1eeW8QRrpSusqWV1rFVo/b5xGugagrRNtnDdPE7UntGtLq2T1eut319POHx17w6rabNZw8UaBvGyc4XS73V7NEbksftruxrU3b1Vtrjhtq5LmF7IrLcvzTTk4nVmv5XbVUcfcNM+3C+ZNc8fQ4fOAENYPQ9yWMZYPyCDsa2baD7fwq0O3Q4tMvJO1Cj/s3GgzK+zTnJluhWF+B+DcypktEoV9NLHtkBmCOC7nJbKzO9S6s1PHDB+eFJLDIaIXC8+Hg6USMgZmlrgizTDnriN5VHinmIUSjorAkLkiznJm4QmROgT3cUScT+Z7UuB825ciTuqLpWBut1fI7j4a7t67/2CGea/T6aki5MDF84EoDYiNly6BWYKRApGFEUmcmkbTaxnHHCowpDAVvJPaQEek6HGAmJvIx/ygr54Z+9xm+yEOh4Q8ekyeHDx9NsOcuooPYEC3D7uZj/nJDxCAqutZEzpeXtvaOnlOk7Ui64AgRu2ADTTzIOx1IUwpTy4F04DbYPSmR7nRWn9eDIdk/8XLV6/fvB3OMOPV4mXH3sAKYD8hZpj1AfCrhhm+A3i/IhUoVjC7eW3EgYVXU57MyXzmkobv3o9GHz5++lzDTFKZE0Ul5ijBXIEhRoMnDczQPEiQTDbT9Ss1cwoXQAFOZFVmfXXpXOYvX0eog2/fa5gjzrB8WVJixhKmGRoSpmvZwGxxRlWI8YHBt+EdWJoZQ8VHzTgAsmlmkVj00FDPJY3Hmnk0HtcwY6IdnqhybZCBShS+QfD42AwNzJhoO+Zdjr3BUwmiIDMs5w4WwUD5iZpmJo5STn1tlPvb0ajQkSkqWvlzsCsDo6hVBFGaahctkbDa9Vg8VZn625mp6f+zHUKTTGtdpv52ZnKiZvOYdF2H1rpM/e3s9OPn3+5g6m8XWab+dpFl6m8XWfP720ILLfTP9QtdQXEF0cojawAAAABJRU5ErkJggg=="
@@ -63,19 +63,16 @@ ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_')],
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Button('Quit',key='_Q_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
-ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yLinux_')],
-            [sg.Text("STIPhoto directory:"), sg.InputText('',key='_LD_')],
-            [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hLinux_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
+ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_')],
+                 [sg.Text("STIPhoto dir:"), sg.InputText('',key='_LD_')],
+                 [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hL_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
+                 [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
 ToolSR = [  [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_'),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_')], #move seed settings to settings tab and auto-set seed to default.
             [sg.Button('Replace!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
 ToolO = [ [sg.Text("hello")] ]
 
 ToolI = [ [sg.Text("hello")] ]
-
-ToolFR = ToolRR
-SelectedTool = ToolFR
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
@@ -87,14 +84,19 @@ ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
                  ]
 
-layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedTool, element_justification='c',key='_ToolVC_')]]
+ToolSelect2 = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
+                [sg.Tab('',layout=ToolRR,border_width=0,expand_y=True,image_source=RRIcon,key='_RR_')],
+                [sg.Canvas(background_color="#121212",size=(10,10),key='_c2_')],
+                [sg.Tab('',layout=ToolSR,border_width=0,expand_y=True,image_source=SRIcon,key='_SR_')],
+                [sg.Canvas(background_color="#121212",size=(10,10),key='_c3_')],
+                [sg.Tab('',layout=ToolO,border_width=0,expand_y=True,image_source=SIcon,key='_S_')],
+                [sg.Canvas('',background_color="#121212",size=(10,10),key='_c4_')],
+                [sg.Tab('',layout=ToolI,border_width=0,expand_y=True,image_source=IIcon,key='_SR_')]
+                  ]
+#fix image loading, says cant find file. after continue testing tab with og button gui layout.
+#SelectedToolTT = [[sg.Tab('',layout=ToolRR,key="_ToolRRT_"),sg.Tab('',layout=ToolRRLinux,key="_ToolRRLinuxT_"),sg.Tab('',layout=ToolSR,key="_ToolSRT_"),sg.Tab('',layout=ToolO,key="_ToolOT_"),sg.Tab('',layout=ToolI,key="_ToolIT_")]]
+SelectedToolT = [[sg.TabGroup(ToolSelect2,visible=False,key="_Tabgr_",selected_background_color="#121212",tab_background_color="#121212")]]
 
-print("layout= " + str(layout))
-print("ToolSR= " + str(ToolSR))
-print("ToolRR= " + str(ToolRR))
-print("ToolRRLinux= " + str(ToolRRLinux))
-print("ToolSelect= " + str(ToolSelect))
-print("layoutLOAD= " + str(layoutLOAD))
 window2 = sg.Window('STI Image Script', layoutLOAD)
 progress_bar = window2['_progressbar_']
 event, values = window2.read(timeout=50)
@@ -246,25 +248,21 @@ progress_bar.Update(x5)
 time.sleep(0.5)     
 window2.close()       
 if Linux == True:
-    ToolFR = ToolRRLinux
-    SelectedTool = ToolFR
+    layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedToolT, element_justification='c',key='_ToolVC_')]]
     window = sg.Window('STI Image Script Linux/MacOSX', layout,size=(800,250))
-    event, values = window.read()
-    window['_ToolVC_'].update(layout)
+    event, values = window.read(timeout=10)
     window.refresh()
 elif Linux == False:
-    ToolFR = ToolRR
-    SelectedTool = ToolFR
+    layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedToolT, element_justification='c',key='_ToolVC_')]]
     window = sg.Window('STI Image Script Windows', layout,size=(800,250))
-    event, values = window.read()
-    window['_ToolVC_'].update(layout)
+    event, values = window.read(timeout=10)
     window.refresh()
 while True:
     event, values = window.read(timeout=50)
     ImgR = next(os.walk(dir))[2]
     imgC = len(ImgR)
     if Linux == True:
-        window['_yLinux_'].update('Nb of img to insert:' + str(imgC)) #issue with keys, cant find _yLinux_, while it does indeed exsist. could be issue of layout inside of layout.
+        window['_yL_'].update('Nb of img to insert:' + str(imgC))
         window.refresh()
     elif Linux == False:
         window['_y_'].update('Number of images to insert:' + str(imgC))
@@ -276,7 +274,7 @@ while True:
         if Linux == True:
             if values['_LD_'] != "":
                 fO4 = open("./Seed.txt", "w")
-                fO4.write(str(values['_hLinux_']))
+                fO4.write(str(values['_hL_']))
                 fO4.close()
                 fO5 = open("./dir_name.txt", "w")
                 fO5.write(str(values['_LD_']))
@@ -325,35 +323,31 @@ while True:
     if event == 'GUILibSettings':
         sg.main_global_pysimplegui_settings()
     if event == '_RR_':
-        SelectedTool = ToolFR
         print("selected tool FR")
         window['_RR_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window['_ToolVC_'].update(layout)
+
     if event == '_SR_':
-        SelectedTool = ToolSR
         print("selected tool SR")
         window['_SR_'].update(button_color="#323232")
         window['_RR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window['_ToolVC_'].update(layout)
+
     if event == '_S_':
-        SelectedTool = ToolO
         print("selected tool O")
         window['_S_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        window['_ToolVC_'].update(layout)
+        
     if event == '_I_':
-        SelectedTool = ToolI
         print("selected tool I")
         window['_I_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
-        window['_ToolVC_'].update(layout)
+
 window.close()
