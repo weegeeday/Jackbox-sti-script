@@ -10,13 +10,13 @@ PREP2 = open("./dir_name.txt", "w")
 PREP2.close()
 PREP3 = open("./Seed.txt", "w")
 PREP3.close()
-os.mkdir("./TEMPimgp/") #fix things with gen of dir, and img loading in SRTool.
 try:  
     os.mkdir("./Replacement Images")
     os.mkdir("./Replacement Images Backup")
     os.mkdir("./Images to put in STIPphoto")
     os.mkdir("./Images to put in STIPphoto/Thumbnails")
-    os.mkdir("./TEMPimgp/")
+    os.mkdir("./Replacement ImagesP")
+    os.mkdir("./Original ImagesP")
 except FileExistsError:
     print("skipping making folders.")
 import Replacer
@@ -25,7 +25,6 @@ import vdf
 S = 0
 x = 0
 y = 0
-f = 0
 x2 = 6.5
 winreg.HKEY_LOCAL_MACHINE
 gif103 = sg.DEFAULT_BASE64_LOADING_GIF
@@ -395,23 +394,40 @@ while True:
         imagefile = dir + "/" + str(values['_LIST1_'][0])
         print(imagefile)
         img = Image.open(imagefile)
-        img.save("./TEMPimgp/" + str(f) + ".png")
-        imagef = "./TEMPimgp/" + str(f) + ".png"
-        print(imagef)
+        head, sep, tail = str(values['_LIST1_'][0]).partition('.')
+        print(head)
+        img = img.resize((100,50))
+        img.save("./Replacement ImagesP/" + head + ".png")
+        imagef = "./Replacement ImagesP/" + head + ".png"
         window['_SRRILIP_'].update(source=imagef)
     if event == '_LIST1L_':
-        imagefile = dir + "/" + str(values['_LIST1_'][0])
+        imagefile = dir + "/" + str(values['_LIST1L_'][0])
         print(imagefile)
         img = Image.open(imagefile)
-        img.save("./TEMPimgp/" + str(f) + ".png")
-        imagef = "./TEMPimgp/" + str(f) + ".png"
-        print(imagef)
+        head, sep, tail = str(values['_LIST1_'][0]).partition('.')
+        print(head)
+        img = img.resize((100,50))
+        img.save("./Replacement ImagesP/" + head + ".png")
+        imagef = "./Replacement ImagesP/" + head + ".png"
         window['_SRRILIPL_'].update(source=imagef)
-        f = f + 1
+    if event == '_LIST2_':
+        imagefile = dir_name + "/" + str(values['_LIST2_'][0])
+        print(imagefile)
+        img = Image.open(imagefile)
+        head, sep, tail = str(values['_LIST2_'][0]).partition('.')
+        print(head)
+        img = img.resize((100,50))
+        img.save("./Original ImagesP/" + head + ".png")
+        imagef = "./Original ImagesP/" + head + ".png"
+        window['_SROILIP_'].update(source=imagef) #make new method for SRTool (in replacer.py)
+    if event == '_LIST2L_':      
+        imagefile = dir_nameL + "/" + str(values['_LIST2L_'][0])
+        print(imagefile)
+        img = Image.open(imagefile)
+        head, sep, tail = str(values['_LIST2L_'][0]).partition('.')
+        print(head)
+        img = img.resize((100,50))
+        img.save("./Original ImagesP/" + head + ".png")
+        imagef = "./Original ImagesP/" + head + ".png"
+        window['_SROILIPL_'].update(source=imagef)
 window.close()
-sg.popup_auto_close("Cleaning up...", auto_close_duration=3)
-ImgClean = sorted( filter( lambda x: os.path.isfile(os.path.join("./TEMPimgp/", x)),
-                        os.listdir("./TEMPimgp/") ) )
-print(ImgClean)
-#while ImgClean != 
-#os.remove("./TEMPimgp/" + str(f) + ".png")

@@ -84,7 +84,7 @@ class Replacer():
             except ValueError:
                 print("hello crash")
                 MRun.crash()
-
+#make new method for SRTool
     @staticmethod
     def ImgIMCREX():
         global OImgO
