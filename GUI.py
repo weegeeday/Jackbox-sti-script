@@ -3,17 +3,20 @@ import json
 import time
 import PySimpleGUI as sg
 import os
+from PIL import Image
 PREP1 = open("./Library.json", "w")
 PREP1.close()
 PREP2 = open("./dir_name.txt", "w")
 PREP2.close()
 PREP3 = open("./Seed.txt", "w")
 PREP3.close()
-try: 
+os.mkdir("./TEMPimgp/") #fix things with gen of dir, and img loading in SRTool.
+try:  
     os.mkdir("./Replacement Images")
     os.mkdir("./Replacement Images Backup")
     os.mkdir("./Images to put in STIPphoto")
     os.mkdir("./Images to put in STIPphoto/Thumbnails")
+    os.mkdir("./TEMPimgp/")
 except FileExistsError:
     print("skipping making folders.")
 import Replacer
@@ -22,9 +25,11 @@ import vdf
 S = 0
 x = 0
 y = 0
+f = 0
 x2 = 6.5
 winreg.HKEY_LOCAL_MACHINE
 gif103 = sg.DEFAULT_BASE64_LOADING_GIF
+arrow = sg.SYMBOL_RIGHT_ARROWHEAD
 SteamReg = ""
 SteamINSD = ""
 SteamST = ""
@@ -36,7 +41,9 @@ global ISDIR
 global x3
 global Linux
 global ToolFR
+global ToolSR
 global SelectedToolBU
+global imagefile
 RRIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAQVQTFRFAAAAIdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8////////////////////////////////////////////////////////////////////IdF8IdF8////////////////////////////////GZ5dHrhtHrluHrdt////////////////////AAAAC0InF41TC0EmHrdtIdF8E3pIE3tJFHtIHKplFHpIHrhu////IdF8F5RXF5NXAAAAC0MnF41TC0InFolRGZtcHrluGZhaGZhaEF84AAAAHK5nFYNNE3FDHK9oHK5nGqJg////////vsxuNwAAAFd0Uk5TAClmzHoUXP+PUuDCcNaZoxA/DkAwIJC/r/83/sCAoLDvH+twX39QT2/wYN+rqqvQ3+DPnwFLqUysRxkZlv+Wq489vL0CJVUlLe7/7fN9C7WphLP++gEEFMFrdwAAAwlJREFUeJztlWlb00AQx1cQKyB1a7JpV7ObSJrCBmoO8BbFW+tt0e//UZzZpJA2WRoPHnh8+n/Rbmf2+M3s7JSQhRb6r3VpaRl1eeW8QRrpSusqWV1rFVo/b5xGugagrRNtnDdPE7UntGtLq2T1eut319POHx17w6rabNZw8UaBvGyc4XS73V7NEbksftruxrU3b1Vtrjhtq5LmF7IrLcvzTTk4nVmv5XbVUcfcNM+3C+ZNc8fQ4fOAENYPQ9yWMZYPyCDsa2baD7fwq0O3Q4tMvJO1Cj/s3GgzK+zTnJluhWF+B+DcypktEoV9NLHtkBmCOC7nJbKzO9S6s1PHDB+eFJLDIaIXC8+Hg6USMgZmlrgizTDnriN5VHinmIUSjorAkLkiznJm4QmROgT3cUScT+Z7UuB825ciTuqLpWBut1fI7j4a7t67/2CGea/T6aki5MDF84EoDYiNly6BWYKRApGFEUmcmkbTaxnHHCowpDAVvJPaQEek6HGAmJvIx/ygr54Z+9xm+yEOh4Q8ekyeHDx9NsOcuooPYEC3D7uZj/nJDxCAqutZEzpeXtvaOnlOk7Ui64AgRu2ADTTzIOx1IUwpTy4F04DbYPSmR7nRWn9eDIdk/8XLV6/fvB3OMOPV4mXH3sAKYD8hZpj1AfCrhhm+A3i/IhUoVjC7eW3EgYVXU57MyXzmkobv3o9GHz5++lzDTFKZE0Ul5ijBXIEhRoMnDczQPEiQTDbT9Ss1cwoXQAFOZFVmfXXpXOYvX0eog2/fa5gjzrB8WVJixhKmGRoSpmvZwGxxRlWI8YHBt+EdWJoZQ8VHzTgAsmlmkVj00FDPJY3Hmnk0HtcwY6IdnqhybZCBShS+QfD42AwNzJhoO+Zdjr3BUwmiIDMs5w4WwUD5iZpmJo5STn1tlPvb0ajQkSkqWvlzsCsDo6hVBFGaahctkbDa9Vg8VZn625mp6f+zHUKTTGtdpv52ZnKiZvOYdF2H1rpM/e3s9OPn3+5g6m8XWab+dpFl6m8XWfP720ILLfTP9QtdQXEF0cojawAAAABJRU5ErkJggg=="
 SRIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAYAAABnli/DAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAACQlJREFUeJztWg9sk8cVh1EFCrRyWYsTnM/5bDMxWq1LgWmatireRDXWqktWtV1ZRcmmJPwJcVzakpE/2CSwaVQCxLS2qkpjbZ22NiCiQEkIrHE3CrS0xLQUAmmGO4lpjG0JoQPGktzepe/s58vZ+ZKYpmvvJ/0U+7u7d+/d/b73vfucCRM0NDQ0NDQ0NDQ0NDQ0NDgcDcW5zpayu1zvVs/zdNXN9/x5gzVCX9exynlG86pcxytFcxwvF00e71g0PufI3lnS7TxQ3uOKVPWCQHtBqNb4QV0vjLnobPX1OHaW7HPsKPnaeMei8TmH8w/+3pzXn/gQhHkIxLwHhNqUhLtBwM3AFv7XfXp9i6u96nBOePVfQNBNRqvvrnT6xRjL5RxB/1nAsnT6gHYLgd50200XwDc70D/efnwq4H5/3WXga+73apa5O9Z/BQR9Owg3kR/U3Z5zpOIbRkvZMqO1/OfO1x7f6Ni1fIl5pGKN+8S6Q+6Tgb3A+enwhwsH2M3i6LYiauizAHh6jHObXLzStTAwOBa71xPg253As+PtRzrA15nvwagNgHivDGbkM7X3uSI1kz2dtTeAgBMI2Tcjq36px/G7oursXcv3G00r/wTfa+D6OndHkGf0Zk/XhgVpCqhHiAf+2jAzflJi5jdSWLqWO6YFvs74jImZjekpCGK9gmXEIi5kfu2mh+dP/OLa72bcWnv/jTOeXDhp1ks/mTTr90Vzs3cu+yUIOWrsKf0ou3FFxLnf/4br7cooZOc213s130pDMFw4zEK/AmA5FZlKzJhpeb98hQ1+o+RTO/xxDWwH5nESn0S7V2HHK30f4ptijEkYIPb596Wyv8IHvNnkuBPEjHEtxX5DkoDUbkptXtU4ESMmlqVSrNyWTTFHvtyGMYhYAnTtxN7j/HmyTUtIEDNk4ds25n9h5qYHbrZveejr9m0PF9g3P5gz8+kHptifWTw7a/uSgOOV4ojx6ioWY3PZgLO1/ByUINvh+4NAD3A68AbgxJH4QgJKGgg+9qP4t0csvCxmXGhG+tdL8/DyJYLtDK9H0GZYZGhGygy0kyvZiQ7nmyIG/jgNkb5e4pPK3zD6popbFnOYkKNguLixLSTZp+MYtou2rUjhUxvpy4Xcjm0RnM8kcctxFGLbVpxH+Gb5vBQDFbOxd1VG5ouP3Za9pzQfDoa/htq4GcS6Jqv+sXkg8tn2bT/Mhyy9EUTalyDoV1f1A3uBHcCXgE8Cvw+cC7wJOMmqPxjoWeAWOSD2cWYIk+88kzbiZ1nM3I6XLHBMiHwM3xzSVyy2qsygYg4xUj8LUVLfGN6I6FvbBAVwHJNujCjZWJvkvxC4sB0i8w7JzOSzV7rZUsVN7cvjGFkDkXDEutukmyso2sj3raq4cc3apXm8qjWzhJiYuzZ8L/PZH83IfP7RPONA+XOu41X/dJ8I9Ob88YmDWS8uqbb/6pHFjoaSYmA5lBrnJTFTXgF+CAwDNwEXAWcDZ1rxBxcnxOJoJ4scZkMPaCKrxsQsbwZe20o2hDFFGWBBzAXS4vMsUjCcb4p5gtJNyQXSo+gj5g0LQZD+Im5lzYyx5FEfUsQdm4tcixKxM+kmSRAd+ucl42hbbE0VcdsU/sXGjhgo5t3uk4EfQAZe4Ggorsp546k33WfW93k66/rNo2vPw6HvoGPX8l2QrVugnNgBtfMRzMYqMQ9g20fALmADsBJ490h9Q/HQA2EExd1GqBIzH9ct9TuLi2mmENlwYraJjaWfST+lb4p5EsTD4m9wZH9Dsg9kjFLMLJ79RLkk+qWKuxHno/N3E4EyqX8qMTPJTjvxIUHMsu10iPmquyN4wBle/VR208rN5pGKY+5TwUtwnXG6z9T2u94P/AfEftl9KnDVdbz6Ihz8joE4/5siO4uyoxNYDywD3jEa/+gC4KL5cfNjxDY5M0fkfrihCdlAmiulmMn3Qja05EnqW5KYqE0vikn2N5fYDko2hoiZYYZniQdE0S9V3IPlh2J+G7VBbQ4j5sIke3SdxdxVd831bs1RY7/vBaiRXwex/gMycp8Q8yC7Ngx8zLoBD4jbfLvygrHPdw2zcLJS4x3g08CFQBOYMRr/JDE3yptK+lExi01VHiRZksOZRTH7ceO5L35yPalvSWKiNk3cyGT+ch9C5PvgEws/UzEn+M+kbJwi7iC1r2gfiZhjpVeSecLSNdk/rzzOMkCg/SDmSzmH15wHIf+bizVByCp21jHz0JoBo8WXLDNfAjYB7wVOs/pWAzejnmSkXMxYQdJODxs2Fq9Z5QMgX+B6ybaJn3n9TGvxQjIft5/H4q/mZDGb2Cd2Sh/ON0WcCWJO4S+tx3vQP263jcUPVUkzM95g8hsLVdziZhLz8TnKybiRiLkQ5zCJbT+JOyzbkuwE2KhfzXXWDrhPBrmg+9yn1/eDuFMLGel6p5I5D/iZsXdIvczwbQevlzcDv2Q1K2PgEZaIRpZ4+PBL7SG8LotZtiULLUzaomSceEUkHs+qR3yUSQfMVL4p+qnEbFP4S8XciNcY9hOClGvmELERlMSSKu5CYn9wDtJmWcwKHxiLJ6PhxCzOSAn2LQMOe5fNNyuuQk3cZ0XEsVq6I8jMwxXMaPYJEXcDjwP/hmLmdfNF4PPA7wCnWPUJFz1lMIzUdMP046JO9r43adtYYNU3qz6JGwrXxcqvodyGOZI5SFvafvEcyzqMCo4dJSegXo66ItV/hbr47yDUC5bYWXvBdXTtv5z7fLw+5vXzQWAp8LfA88bu0v7sxhXXgG8ZTSt9xp7SWz+xoD5jYIqng4YCjobix41WX52rvepnIOZfgFCtsbN2k/nWT7dD3czfbJwDbgO6gfkg4N2zfvPjc5nPLI5mvbDkWcfLRfcajSumj3es/6/QYrYIEPNUEPNkV6RqCoh5CgjVEt2ngjc6W8vngHirMRvfx3/p4+WEfctD99yy7O7A9EV3VE+//86v3lL27WmZzz06op+2NeJI56NfIwlAuDashx8B5uC1iTNWL7RNu2euZ/Icuyfjy/apU7/p0ULW+HQDM/HN/Kdq/o9FUvNEpIaGhoaGhoaGhoaGhoaGhoZ1/A+xObjHzZ2ipAAAAABJRU5ErkJggg=="
 SIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAIdQTFRFAAAAHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVs////////////HbVs////////////////////////////////HbVs////////HbVs////////HbVs////////////////////////HbVsHbVs////////////////////////HbVs////XmilpwAAAC10Uk5TAGb/zDNcKdbrRxA/IHpgr7+PT0D/gB/A8MJwoJmwXzDPf2+the9Q0N/gkAqfi0rfYgAAAm1JREFUeJztl317siAUxpmr2dC5lGO4zKlrSvrs+3++5wBOa9nCrHV1Xd1/8CYHf+INKCF3XUcPltLDtTmG6BaZHzXz47U5zDSZPhHyZGtmW5ank2szHZNtzZ6fZ1YjVbbPODx13DOOpvVi9ejFLNZ7nc/nfvBrHwbhGSh3tJj1Mc8WJrEcIs45wI9m4M1VlV2A+a0P2bLeDEKXEMuMLn+07zJfQB2mvVrZXc0gNIEdp7L3ICXSv5A5jkPTDDBztZ9lkuZB098N8pS4DlW9P9pmY7WYa7TD4rN9AINQDmlXQUSUL72gxLjKQu0NTGKsFaXsWhZYfA2BYVSheg1k/oa2tYNX5sjojSygTdktBCM0VN7t8TODgqekjDayK2BXVxSSuarwsV1vKHOD2WzJE1VZmUUmOEWZz2Qx1nPOi0PMlXy6WnLGMiE0ktmp6/N0ZsJqoQ1BIs25lOi9zGq5loDmEFVzGZmj4p32jHtJZhT1IsB3C99iB5jDttxcVnPOInxT+VDsxY6f/6133G2kEhIEEUyLHmVuXom2CCnrCoqBG8eIfaMRk4zVpmtomJMDzBzUvArNTKShBrp6xP7Mtm5ZQ9m2i0xlod6+95g9VS6hZU6HMq/7z8G1QSjf+IETfEEkD40KcjxCfDndMfh57iLVPM/ZPjPO8Ffug9zdWfbhOEHW0htqxPeGJ9SqS9QuR2tZjuT2QONITWIots+UjpmihQWL0TqpGqEqf7tLn6Z9zFPDYMa2j8LtylGJSKaUsVM+VS/8/bwvtQRLqEcM8ef/KTzL80wfjOP0h/+DXsIFX45Hvsn/7ltkvusurf+e+jX6cSOldAAAAABJRU5ErkJggg=="
@@ -56,20 +63,17 @@ ImgR = next(os.walk(dir))[2]
 imgC = len(ImgR)
 ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
                         os.listdir(dir) ) )
-ImgFO = ['']
-ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_')],
+ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_',auto_size_text=True,pad=((0,293),(0,0)))],
             [sg.Text('Seed for randomness:',key='_Seed_'), sg.InputText(key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
             [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Button('Quit',key='_Q_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
-ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_')],
-                 [sg.Text("STIPhoto dir:"), sg.InputText('',key='_LD_')],
+ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_',auto_size_text=True,pad=((0,329),(0,0)))],
+                 [sg.Text("STIPhoto dir:"), sg.InputText(key='_LD_',pad=((0,88),(0,0)),size=(40,1))],
                  [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hL_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
                  [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
-ToolSR = [  [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_'),sg.VSeparator(),sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_')], #move seed settings to settings tab and auto-set seed to default.
-            [sg.Button('Replace!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R2_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
 ToolO = [ [sg.Text("hello")] ]
 
 ToolI = [ [sg.Text("hello")] ]
@@ -83,20 +87,6 @@ ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Canvas(background_color="#121212",size=(10,10),key='_c4_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
                  ]
-
-ToolSelect2 = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
-                [sg.Tab('',layout=ToolRR,border_width=0,expand_y=True,image_source=RRIcon,key='_RR_')],
-                [sg.Canvas(background_color="#121212",size=(10,10),key='_c2_')],
-                [sg.Tab('',layout=ToolSR,border_width=0,expand_y=True,image_source=SRIcon,key='_SR_')],
-                [sg.Canvas(background_color="#121212",size=(10,10),key='_c3_')],
-                [sg.Tab('',layout=ToolO,border_width=0,expand_y=True,image_source=SIcon,key='_S_')],
-                [sg.Canvas('',background_color="#121212",size=(10,10),key='_c4_')],
-                [sg.Tab('',layout=ToolI,border_width=0,expand_y=True,image_source=IIcon,key='_SR_')]
-                  ]
-#fix image loading, says cant find file. after continue testing tab with og button gui layout.
-#SelectedToolTT = [[sg.Tab('',layout=ToolRR,key="_ToolRRT_"),sg.Tab('',layout=ToolRRLinux,key="_ToolRRLinuxT_"),sg.Tab('',layout=ToolSR,key="_ToolSRT_"),sg.Tab('',layout=ToolO,key="_ToolOT_"),sg.Tab('',layout=ToolI,key="_ToolIT_")]]
-SelectedToolT = [[sg.TabGroup(ToolSelect2,visible=False,key="_Tabgr_",selected_background_color="#121212",tab_background_color="#121212")]]
-
 window2 = sg.Window('STI Image Script', layoutLOAD)
 progress_bar = window2['_progressbar_']
 event, values = window2.read(timeout=50)
@@ -166,7 +156,7 @@ try:
                     raise
 except FileNotFoundError:
     try:
-        SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Wow643Node\Valve\Steam",reserved=0,access=winreg.KEY_READ)
+        SteamReg = winreg.OpenKey(key=winreg.HKEY_LOCAL_MACHINE,sub_key="SOFTWARE\Wow6432Node\Valve\Steam",reserved=0,access=winreg.KEY_READ)
         Linux = False
         progress_bar.Update(x+0.5) #0.5
         SteamINSD = winreg.QueryValueEx(SteamReg, "InstallPath")
@@ -248,14 +238,36 @@ progress_bar.Update(x5)
 time.sleep(0.5)     
 window2.close()       
 if Linux == True:
-    layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedToolT, element_justification='c',key='_ToolVC_')]]
-    window = sg.Window('STI Image Script Linux/MacOSX', layout,size=(800,250))
-    event, values = window.read(timeout=10)
+    ToolFR = ToolRRLinux
+    dir_nameL = "./"
+    ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_nameL, x)),
+                        os.listdir(dir_nameL) )) 
+    ToolSR = [  [sg.Text("STIPhoto dir:"), sg.InputText(key='_STIPSRDIR_'),sg.Button("Set dir!",key="_SRSD_")],
+                [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1L_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True),sg.VSeparator(),sg.Listbox(ImgFO,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2L_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)], #move seed settings to settings tab and auto-set seed to default.
+                [sg.Image(key="_SRRILIPL_"),sg.Text(arrow,auto_size_text=True),sg.Image(key="_SROILIPL_")],
+                [sg.Button("Replace!",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SRRBL_')],
+                [sg.Button("Reload files!",key="_SRRFL_",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
+                [sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
+    ToolWindow = [[sg.Frame('',ToolFR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_FRF_",element_justification="c",vertical_alignment="c",visible=True),
+                   sg.Frame('',ToolSR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_SRF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
+                   sg.Frame('',ToolO,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_OF_",element_justification="c",vertical_alignment="c",visible=False),
+                   sg.Frame('',ToolI,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_IF_",element_justification="c",vertical_alignment="c",visible=False)]]
+    layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(ToolWindow, element_justification='c',key='_ToolVC_')]]
+    window = sg.Window('STI Image Script Linux/MacOSX', layout,size=(725,250))
     window.refresh()
 elif Linux == False:
-    layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(SelectedToolT, element_justification='c',key='_ToolVC_')]]
-    window = sg.Window('STI Image Script Windows', layout,size=(800,250))
-    event, values = window.read(timeout=10)
+    ToolFR = ToolRR
+    ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_name, x)),
+                        os.listdir(dir_name) ) )
+    ToolSR = [  [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True),sg.VSeparator(),sg.Listbox(ImgFO,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)], #move seed settings to settings tab and auto-set seed to default.
+                [sg.Image(key="_SRRILIP_"),sg.Text(arrow,auto_size_text=True),sg.Image(key="_SROILIP_")],
+                [sg.Button("Replace!",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SRRBL_'),sg.Button("Reload files!",key="_SRRF_",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
+    ToolWindow = [[sg.Frame('',ToolFR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_FRF_",element_justification="c",vertical_alignment="c",visible=True),
+                   sg.Frame('',ToolSR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_SRF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
+                   sg.Frame('',ToolO,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_OF_",element_justification="c",vertical_alignment="c",visible=False),
+                   sg.Frame('',ToolI,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_IF_",element_justification="c",vertical_alignment="c",visible=False)]]
+    layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(ToolWindow, element_justification='c',key='_ToolVC_')]]
+    window = sg.Window('STI Image Script Windows', layout,size=(725,250))
     window.refresh()
 while True:
     event, values = window.read(timeout=50)
@@ -328,26 +340,78 @@ while True:
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-
+        window['_IF_'].update(visible=False)
+        window['_OF_'].update(visible=False)
+        window['_FRF_'].update(visible=True)
+        window['_SRF_'].update(visible=False)
     if event == '_SR_':
         print("selected tool SR")
         window['_SR_'].update(button_color="#323232")
         window['_RR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-
+        window['_IF_'].update(visible=False)
+        window['_OF_'].update(visible=False)
+        window['_FRF_'].update(visible=False)
+        window['_SRF_'].update(visible=True)
     if event == '_S_':
         print("selected tool O")
         window['_S_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
-        
+        window['_IF_'].update(visible=False)
+        window['_OF_'].update(visible=True)
+        window['_FRF_'].update(visible=False)
+        window['_SRF_'].update(visible=False)
     if event == '_I_':
         print("selected tool I")
-        window['_I_'].update(button_color="#323232")
+        window['_I_'].update(button_color="#121212")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
-
+        window['_IF_'].update(visible=True)
+        window['_OF_'].update(visible=False)
+        window['_FRF_'].update(visible=False)
+        window['_SRF_'].update(visible=False)
+    if Linux == True and event == '_SRSD_':
+        dir_nameL = str(values['_STIPSRDIR_'])
+        ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_nameL, x)),
+                        os.listdir(dir_nameL) ))
+        window['_LIST2L_'].update(ImgFO)
+    if event == '_SRRF_':
+        ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
+                        os.listdir(dir) ) )
+        ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_name, x)),
+                        os.listdir(dir_name) ) )
+        window['_LIST1_'].update(ImgFR)
+    if event == '_SRRFL_':
+        ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
+                        os.listdir(dir) ) )
+        ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_nameL, x)),
+                        os.listdir(dir_nameL) ) )
+        window['_LIST1L_'].update(ImgFR)
+    if event == '_LIST1_':
+        imagefile = dir + "/" + str(values['_LIST1_'][0])
+        print(imagefile)
+        img = Image.open(imagefile)
+        img.save("./TEMPimgp/" + str(f) + ".png")
+        imagef = "./TEMPimgp/" + str(f) + ".png"
+        print(imagef)
+        window['_SRRILIP_'].update(source=imagef)
+    if event == '_LIST1L_':
+        imagefile = dir + "/" + str(values['_LIST1_'][0])
+        print(imagefile)
+        img = Image.open(imagefile)
+        img.save("./TEMPimgp/" + str(f) + ".png")
+        imagef = "./TEMPimgp/" + str(f) + ".png"
+        print(imagef)
+        window['_SRRILIPL_'].update(source=imagef)
+        f = f + 1
 window.close()
+sg.popup_auto_close("Cleaning up...", auto_close_duration=3)
+ImgClean = sorted( filter( lambda x: os.path.isfile(os.path.join("./TEMPimgp/", x)),
+                        os.listdir("./TEMPimgp/") ) )
+print(ImgClean)
+#while ImgClean != 
+#os.remove("./TEMPimgp/" + str(f) + ".png")
