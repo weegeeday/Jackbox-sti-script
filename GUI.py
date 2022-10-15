@@ -63,7 +63,7 @@ imgC = len(ImgR)
 ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
                         os.listdir(dir) ) )
 ToolRR = [  [sg.Text('Number of images to insert:' + str(imgC),key='_y_',auto_size_text=True,pad=((0,293),(0,0)))],
-            [sg.Text('Seed for randomness:',key='_Seed_'), sg.InputText(key='_h_'), sg.Button('Use Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
+            [sg.Text('Seed for randomness:',key='_Seed_'), sg.InputText(key='_h_',size=(38,1)), sg.Button('Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D_')], #move seed settings to settings tab and auto-set seed to default.
             [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q1_')] ]
 layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Image(data=gif103, key='_IMAGE_', pad=(100,0))], #move seed settings to settings tab and auto-set seed to default.
