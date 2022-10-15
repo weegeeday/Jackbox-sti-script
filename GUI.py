@@ -70,7 +70,7 @@ layoutLOAD = [  [sg.Text('Please wait attempting to get STI directory.')],
                 [sg.Button('Quit',key='_Q_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.ProgressBar(10,'horizontal',s=(10,10),bar_color=("blue","white"),expand_x=True,key='_progressbar_')] ]
 ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_',auto_size_text=True,pad=((0,329),(0,0)))],
                  [sg.Text("STIPhoto dir:"), sg.InputText(key='_LD_',pad=((0,88),(0,0)),size=(40,1))],
-                 [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hL_'), sg.Button('Use default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
+                 [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hL_',size=(38,1)), sg.Button('Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
                  [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
 ToolO = [ [sg.Text("hello")] ]
