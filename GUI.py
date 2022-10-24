@@ -365,7 +365,7 @@ while True:
         window['_SRF_'].update(visible=False)
     if event == '_I_':
         print("selected tool I")
-        window['_I_'].update(button_color="#121212")
+        window['_I_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
