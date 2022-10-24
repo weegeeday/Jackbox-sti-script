@@ -260,7 +260,7 @@ elif Linux == False:
                         os.listdir(dir_name) ) )
     ToolSR = [  [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True),sg.VSeparator(),sg.Listbox(ImgFO,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Image(key="_SRRILIP_"),sg.Text(arrow,auto_size_text=True),sg.Image(key="_SROILIP_")],
-                [sg.Button("Replace!",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SRRBL_'),sg.Button("Reload files!",key="_SRRF_",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
+                [sg.Button("Replace!",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SRRB_'),sg.Button("Reload files!",key="_SRRF_",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
     ToolWindow = [[sg.Frame('',ToolFR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_FRF_",element_justification="c",vertical_alignment="c",visible=True),
                    sg.Frame('',ToolSR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_SRF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
                    sg.Frame('',ToolO,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_OF_",element_justification="c",vertical_alignment="c",visible=False),
@@ -391,43 +391,77 @@ while True:
                         os.listdir(dir_nameL) ) )
         window['_LIST1L_'].update(ImgFR)
     if event == '_LIST1_':
-        imagefile = dir + "/" + str(values['_LIST1_'][0])
-        print(imagefile)
-        img = Image.open(imagefile)
-        head, sep, tail = str(values['_LIST1_'][0]).partition('.')
-        print(head)
-        img = img.resize((100,50))
-        img.save("./Replacement ImagesP/" + head + ".png")
-        imagef = "./Replacement ImagesP/" + head + ".png"
-        window['_SRRILIP_'].update(source=imagef)
+        try:
+            imagefile = dir + "/" + str(values['_LIST1_'][0])
+            print(imagefile)
+            img = Image.open(imagefile)
+            head, sep, tail = str(values['_LIST1_'][0]).partition('.')
+            print(head)
+            img = img.resize((100,50))
+            img.save("./Replacement ImagesP/" + head + ".png")
+            imagef = "./Replacement ImagesP/" + head + ".png"
+            window['_SRRILIP_'].update(source=imagef)
+        except IndexError:
+            sg.popup("No files in Replacement Images! Can't select anything!")
     if event == '_LIST1L_':
-        imagefile = dir + "/" + str(values['_LIST1L_'][0])
-        print(imagefile)
-        img = Image.open(imagefile)
-        head, sep, tail = str(values['_LIST1_'][0]).partition('.')
-        print(head)
-        img = img.resize((100,50))
-        img.save("./Replacement ImagesP/" + head + ".png")
-        imagef = "./Replacement ImagesP/" + head + ".png"
-        window['_SRRILIPL_'].update(source=imagef)
+        try:
+            imagefile = dir + "/" + str(values['_LIST1L_'][0])
+            print(imagefile)
+            img = Image.open(imagefile)
+            head, sep, tail = str(values['_LIST1_'][0]).partition('.')
+            print(head)
+            img = img.resize((100,50))
+            img.save("./Replacement ImagesP/" + head + ".png")
+            imagef = "./Replacement ImagesP/" + head + ".png"
+            window['_SRRILIPL_'].update(source=imagef)
+        except IndexError:
+            sg.popup("No files in Replacement Images! Can't select anything!")
     if event == '_LIST2_':
-        imagefile = dir_name + "/" + str(values['_LIST2_'][0])
-        print(imagefile)
-        img = Image.open(imagefile)
-        head, sep, tail = str(values['_LIST2_'][0]).partition('.')
-        print(head)
-        img = img.resize((100,50))
-        img.save("./Original ImagesP/" + head + ".png")
-        imagef = "./Original ImagesP/" + head + ".png"
-        window['_SROILIP_'].update(source=imagef) #make new method for SRTool (in replacer.py)
+        try:
+            imagefile = dir_name + "/" + str(values['_LIST2_'][0])
+            print(imagefile)
+            img = Image.open(imagefile)
+            head, sep, tail = str(values['_LIST2_'][0]).partition('.')
+            print(head)
+            img = img.resize((100,50))
+            img.save("./Original ImagesP/" + head + ".png")
+            imagef = "./Original ImagesP/" + head + ".png"
+            window['_SROILIP_'].update(source=imagef)
+        except IndexError:
+            sg.popup("No files in Replacement Images! Can't select anything!")
     if event == '_LIST2L_':      
-        imagefile = dir_nameL + "/" + str(values['_LIST2L_'][0])
-        print(imagefile)
-        img = Image.open(imagefile)
-        head, sep, tail = str(values['_LIST2L_'][0]).partition('.')
-        print(head)
-        img = img.resize((100,50))
-        img.save("./Original ImagesP/" + head + ".png")
-        imagef = "./Original ImagesP/" + head + ".png"
-        window['_SROILIPL_'].update(source=imagef)
+        try:
+            imagefile = dir_nameL + "/" + str(values['_LIST2L_'][0])
+            print(imagefile)
+            img = Image.open(imagefile)
+            head, sep, tail = str(values['_LIST2L_'][0]).partition('.')
+            print(head)
+            img = img.resize((100,50))
+            img.save("./Original ImagesP/" + head + ".png")
+            imagef = "./Original ImagesP/" + head + ".png"
+            window['_SROILIPL_'].update(source=imagef)
+        except IndexError:
+            sg.popup("No files in Replacement Images! Can't select anything!")
+    if event == '_SRRB_':
+        fO5 = open("./dir_name.txt", "w")
+        fO5.write(str(dir_name))
+        fO5.close()
+        Orimg = str(values['_LIST2_'][0])
+        Reimg = str(values['_LIST1_'][0])
+        Replacer.Replacer.SRTOOL(Reimg,Orimg)
+        ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
+                        os.listdir(dir) ) )
+        window['_LIST1_'].update(ImgFR)
+        sg.popup("Done!")
+    if event == '_SRRBL_':
+        fO5 = open("./dir_name.txt", "w")
+        fO5.write(str(values['_LD_']))
+        fO5.close()
+        Orimg = str(values['_LIST2L_'][0])
+        Reimg = str(values['_LIST1L_'][0])
+        Replacer.Replacer.SRTOOL(Reimg,Orimg)
+        ImgFR = sorted( filter( lambda x: os.path.isfile(os.path.join(dir, x)),
+                        os.listdir(dir) ) )
+        window['_LIST1L_'].update(ImgFR)
+        sg.popup("Done!")
 window.close()

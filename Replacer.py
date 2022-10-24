@@ -146,5 +146,20 @@ class Replacer():
             fR.readlines()
         except FileNotFoundError:
             print("hello fillenotfounderror")
+    @staticmethod
+    def SRTOOL(Reimg,Orimg):
+        global imgst
+        DIR = open("./dir_name.txt", "r")
+        dir_name = DIR.read()
+        Pre = Image.open(str(dir + "/" + Reimg))
+        Dor = str(dir_name + "\\" + Orimg)
+        Pre = Pre.resize((425, 320))
+        Pre = Pre.convert("RGB")
+        Pre.save("./Images to put in STIPphoto/" + Orimg)
+        os.replace("./Replacement Images/" + Reimg, "./Replacement Images Backup/" + Reimg)
+        Pre = Pre.resize((120, 90))
+        Orimg2 = Orimg.rstrip(".jpg")
+        OrimgT = Orimg2 + "-thumb.jpg"        
+        Pre.save("./Images to put in STIPphoto/Thumbnails/" + OrimgT)          
 MRun = Replacer()
 #MRun = MRun.reset()
