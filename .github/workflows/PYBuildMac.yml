@@ -45,7 +45,7 @@ jobs:
           pip install PyInstaller
           pip install Pillow
           pip install vdf
-          pyinstaller --onefile --add-binary='/System/Library/Frameworks/Tk.framework/Tk':'tk' --add-binary='/System/Library/Frameworks/Tcl.framework/Tcl':'tcl' GUI.py --noconsole --noconfirm --log-level=WARN --distpath "./BUILDARTIFACTS/dist" --workpath "./BUILDARTIFACTS/build" --hidden-import tkinter --hidden-import Pillow --hidden-import PIL --windowed  
+          pyinstaller --onefile GUI.py --noconsole --noconfirm --log-level=WARN --distpath "./BUILDARTIFACTS/dist" --workpath "./BUILDARTIFACTS/build" --hidden-import tkinter --hidden-import Pillow --hidden-import PIL --windowed  
       - name: Upload a Build Artifact1
         uses: actions/upload-artifact@v3.1.0
         with:
