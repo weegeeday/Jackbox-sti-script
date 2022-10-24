@@ -73,7 +73,7 @@ ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_',auto_siz
                  [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hL_',size=(38,1)), sg.Button('Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
                  [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
-ToolO = [ [sg.Text("hello")] ]
+ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_")] ]
 
 ToolI = [ [sg.Text("hello")] ]
 
@@ -235,7 +235,13 @@ progress_bar.Update(x4)
 time.sleep(0.5)
 progress_bar.Update(x5)
 time.sleep(0.5)     
-window2.close()       
+window2.close()
+FLC = open("./FL.txt","r")
+FLC = FLC.readline(1)
+if FLC == "True":
+    Linux = True
+elif FLC == "False":
+    Linux = False       
 if Linux == True:
     ToolFR = ToolRRLinux
     dir_nameL = "./"
@@ -464,4 +470,13 @@ while True:
                         os.listdir(dir) ) )
         window['_LIST1L_'].update(ImgFR)
         sg.popup("Done!")
+    if event == '_FLL_':
+        FLT = open("./FL.txt", "w")
+        if values['_FLL_'] == True:
+            FLT.write("True")
+            FLT.close()
+        elif values['_FLL_'] == False:
+            FLT.write("False")
+            FLT.close()
+        sg.popup("Please reload the program for this to take effect.")
 window.close()

@@ -1,3 +1,4 @@
 Pillow
 pysimplegui
 vdf
+json
