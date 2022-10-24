@@ -1,2 +1,4 @@
 Pillow
 pysimplegui
+vdf
+json
