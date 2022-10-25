@@ -13,6 +13,8 @@ PREP3 = open("./Seed.txt", "w")
 PREP3.close()
 PREP4 = open("./FL.txt", "w")
 PREP4.close()
+PREP5 = open("./STIC.txt","w")
+PREP5.close()
 try:  
     os.mkdir("./Replacement Images")
     os.mkdir("./Replacement Images Backup")
@@ -25,6 +27,7 @@ except FileExistsError:
 import Replacer
 import winreg
 import vdf
+import PromptParser
 S = 0
 x = 0
 y = 0
@@ -51,6 +54,7 @@ SRIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAYAAABnli/DAAAAAXNSR0IB2cksfwAAAAlwSF
 SIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAIdQTFRFAAAAHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVs////////////HbVs////////////////////////////////HbVs////////HbVs////////HbVs////////////////////////HbVsHbVs////////////////////////HbVs////XmilpwAAAC10Uk5TAGb/zDNcKdbrRxA/IHpgr7+PT0D/gB/A8MJwoJmwXzDPf2+the9Q0N/gkAqfi0rfYgAAAm1JREFUeJztl317siAUxpmr2dC5lGO4zKlrSvrs+3++5wBOa9nCrHV1Xd1/8CYHf+INKCF3XUcPltLDtTmG6BaZHzXz47U5zDSZPhHyZGtmW5ank2szHZNtzZ6fZ1YjVbbPODx13DOOpvVi9ejFLNZ7nc/nfvBrHwbhGSh3tJj1Mc8WJrEcIs45wI9m4M1VlV2A+a0P2bLeDEKXEMuMLn+07zJfQB2mvVrZXc0gNIEdp7L3ICXSv5A5jkPTDDBztZ9lkuZB098N8pS4DlW9P9pmY7WYa7TD4rN9AINQDmlXQUSUL72gxLjKQu0NTGKsFaXsWhZYfA2BYVSheg1k/oa2tYNX5sjojSygTdktBCM0VN7t8TODgqekjDayK2BXVxSSuarwsV1vKHOD2WzJE1VZmUUmOEWZz2Qx1nPOi0PMlXy6WnLGMiE0ktmp6/N0ZsJqoQ1BIs25lOi9zGq5loDmEFVzGZmj4p32jHtJZhT1IsB3C99iB5jDttxcVnPOInxT+VDsxY6f/6133G2kEhIEEUyLHmVuXom2CCnrCoqBG8eIfaMRk4zVpmtomJMDzBzUvArNTKShBrp6xP7Mtm5ZQ9m2i0xlod6+95g9VS6hZU6HMq/7z8G1QSjf+IETfEEkD40KcjxCfDndMfh57iLVPM/ZPjPO8Ffug9zdWfbhOEHW0htqxPeGJ9SqS9QuR2tZjuT2QONITWIots+UjpmihQWL0TqpGqEqf7tLn6Z9zFPDYMa2j8LtylGJSKaUsVM+VS/8/bwvtQRLqEcM8ef/KTzL80wfjOP0h/+DXsIFX45Hvsn/7ltkvusurf+e+jX6cSOldAAAAABJRU5ErkJggg=="
 IIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAF1QTFRFAAAAHbVs////////////////////////////////////////////////////////////////////////////////////////////////////////////////////hSVPTwAAAB90Uk5TAP8IHw8Qb5+/MEP/gdDwwEBg34/P74BQsKCQIHDgT4SOFKUAAAE4SURBVHic7djRboMgFAZg2MZqewaoVVrbru//mEMsisqFgUM6Ev8LPdHkz1djFEvInj1bQ8e8W7I1dJZ3azbFhWaCfjHnu/8da6TOENP38fm1OMK+D8UxpnKZUUjdKaLwBD+LI1xImZm5hCqizhOvLwrtMZfhbb6MOjp/eoQ3DmZZVTXAmempgaYo9F19rqE9sDjuXIdshkaoyxUUIaqDTuk9h9vlBjUC2tHhmuGut7Il9t5Q8NDbR/8rYpPMfO1nBcyapTBnf5vwZo8O12yup+q5g1lIc1ZCeLNHl9YMGZplbc5yHt7s0aU1m1HPXXjzpKPrEeGdsjIz0T7LZytwHtArKca7e2Umdw4AHGXd4S7rXnOq1SgrMS5ynwk6raCRqtNloFpzFmv+LL+tsvyGJTn+V7Bnj80fh9sM1IL1VnMAAAAASUVORK5CYII="
 GITI = "iVBORw0KGgoAAAANSUhEUgAAAFUAAAAOCAMAAABpYqBcAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAFRQTFRFAAAA////////////////////////////////////////////////////////////////////////////////////////////////////////////MF88lgAAABx0Uk5TADB/r7+fX4D/ED/AQJDwsGDQz+9wIOCgUN9Pj9+dIu8AAAFZSURBVHictZNtd8IgDIVDpyNZSS1SWur+//9cQkGpunnOdna/iNfch5dEAADTvR2O77KwCEAfsoDewp0c3js/y2JvLQ8nSdqa/jPV4Zg/xzatVHpBpXujle+bU0tY1AuVEc+Ss30hyuYBw1gr+ymgkwBiJ1+RD4hH3YarY1tqPWuwFOdlR/URJoylMpwiEXsDZp6EgROYQUB2cJCGEQwmvX7XdTuq1+h5R9U6z3V/ORhla5IqXJQhVUoGXuWnvOg97qhcYA1V/aU8l52zfRCdsdzXoYnyKgBJ8XztRkO1z6lcqZudnOoZlQO9oo6PL6B2zJbq+gJ5nlguQn69ENBnoRq8tNQku5t56xZJMDZUWFYj7KTdShBXbW6Q/gUNk04D+rRRgYc8WYUKC+I8bZMlVbfJgmuS9awe8aQNXDYjK7rvR5rc4+omY/ILWDCV8KTol8KHP/h/UL8AVUkSWCGq9Z8AAAAASUVORK5CYII="
+PEIcon = IIcon
 ISDIR = False
 GUID = True
 SteamLibrary = []
@@ -77,9 +81,11 @@ ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_',auto_siz
                  [sg.Text('Seed:',key='_SeedLinux_'), sg.InputText(key='_hL_',size=(38,1)), sg.Button('Default', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_D1_')], #move seed settings to settings tab and auto-set seed to default.
                  [sg.Button('Run!', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_R1_'), sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q2_'), sg.Button('GUILibSettings',visible=True,disabled=False, mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')] ]
 
-ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_")] ]
+ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_",enable_events=True)] ]
 
 ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
+
+ToolPE = [[sg.Text("hello")]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
@@ -89,6 +95,8 @@ ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_S_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=SIcon)],
                [sg.Canvas(background_color="#121212",size=(10,10),key='_c4_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
+               [sg.Canvas(background_color="#121212",size=(10,10),key='_c5_')],
+               [sg.Button(key='_PE_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=PEIcon)],
                  ]
 window2 = sg.Window('STI Image Script', layoutLOAD)
 progress_bar = window2['_progressbar_']
@@ -240,6 +248,9 @@ time.sleep(0.5)
 progress_bar.Update(x5)
 time.sleep(0.5)     
 window2.close()
+STICWR = open("./STIC.txt","w")
+STICWR.write(str(str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content"))
+STICWR.close()
 FLC = open("./FL.txt","r")
 FLC = FLC.readline(1)
 if FLC == "True":
@@ -260,7 +271,8 @@ if Linux == True:
     ToolWindow = [[sg.Frame('',ToolFR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_FRF_",element_justification="c",vertical_alignment="c",visible=True),
                    sg.Frame('',ToolSR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_SRF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
                    sg.Frame('',ToolO,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_OF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
-                   sg.Frame('',ToolI,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_IF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200))]]
+                   sg.Frame('',ToolI,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_IF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
+                   sg.Frame('',ToolPE,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_PEF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200))]]
     layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(ToolWindow, element_justification='c',key='_ToolVC_')]]
     window = sg.Window('STI Image Script Linux/MacOSX', layout,size=(725,230))
     window.refresh()
@@ -274,9 +286,10 @@ elif Linux == False:
     ToolWindow = [[sg.Frame('',ToolFR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_FRF_",element_justification="c",vertical_alignment="c",visible=True),
                    sg.Frame('',ToolSR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_SRF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
                    sg.Frame('',ToolO,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_OF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
-                   sg.Frame('',ToolI,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_IF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200))]]
+                   sg.Frame('',ToolI,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_IF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
+                   sg.Frame('',ToolPE,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_PEF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200))]]
     layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(ToolWindow, element_justification='c',key='_ToolVC_')]]
-    window = sg.Window('STI Image Script Windows', layout,size=(725,230))
+    window = sg.Window('STI Image Script Windows', layout,size=(725,280))
     window.refresh()
 while True:
     event, values = window.read(timeout=50)
@@ -349,40 +362,60 @@ while True:
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
+        window['_PE_'].update(button_color="#121212")
         window['_IF_'].update(visible=False)
         window['_OF_'].update(visible=False)
         window['_FRF_'].update(visible=True)
         window['_SRF_'].update(visible=False)
+        window['_PEF_'].update(visible=False)
     if event == '_SR_':
         print("selected tool SR")
         window['_SR_'].update(button_color="#323232")
         window['_RR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
+        window['_PE_'].update(button_color="#121212")
         window['_IF_'].update(visible=False)
         window['_OF_'].update(visible=False)
         window['_FRF_'].update(visible=False)
         window['_SRF_'].update(visible=True)
+        window['_PEF_'].update(visible=False)
     if event == '_S_':
         print("selected tool O")
         window['_S_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
         window['_I_'].update(button_color="#121212")
+        window['_PE_'].update(button_color="#121212")
         window['_IF_'].update(visible=False)
         window['_OF_'].update(visible=True)
         window['_FRF_'].update(visible=False)
         window['_SRF_'].update(visible=False)
+        window['_PEF_'].update(visible=False)
     if event == '_I_':
         print("selected tool I")
         window['_I_'].update(button_color="#323232")
         window['_SR_'].update(button_color="#121212")
         window['_S_'].update(button_color="#121212")
         window['_RR_'].update(button_color="#121212")
+        window['_PE_'].update(button_color="#121212")
         window['_IF_'].update(visible=True)
         window['_OF_'].update(visible=False)
         window['_FRF_'].update(visible=False)
         window['_SRF_'].update(visible=False)
+        window['_PEF_'].update(visible=False)
+    if event == '_PE_':
+        print("selected tool PE")
+        window['_I_'].update(button_color="#121212")
+        window['_SR_'].update(button_color="#121212")
+        window['_S_'].update(button_color="#121212")
+        window['_RR_'].update(button_color="#121212")
+        window['_PE_'].update(button_color="#323232")
+        window['_IF_'].update(visible=False)
+        window['_OF_'].update(visible=False)
+        window['_FRF_'].update(visible=False)
+        window['_SRF_'].update(visible=False)
+        window['_PEF_'].update(visible=True)
     if Linux == True and event == '_SRSD_':
         dir_nameL = str(values['_STIPSRDIR_'])
         ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_nameL, x)),
@@ -479,10 +512,11 @@ while True:
         if values['_FLL_'] == True:
             FLT.write("True")
             FLT.close()
+            sg.popup("Please reload the program for this to take effect.")
         elif values['_FLL_'] == False:
             FLT.write("False")
             FLT.close()
-        sg.popup("Please reload the program for this to take effect.")
+            sg.popup("Please reload the program for this to take effect.")
     if event == '_GitH_':
         webbrowser.open("https://github.com/weegeeday/Jackbox-sti-script")
 window.close()
