@@ -79,7 +79,7 @@ ToolRRLinux = [  [sg.Text('Nb of img to insert:' + str(imgC),key='_yL_',auto_siz
 
 ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_")] ]
 
-ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,image_data=GITI,pad=(15,15))] ]
+ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
