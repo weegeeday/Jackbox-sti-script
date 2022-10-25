@@ -22,6 +22,7 @@ try:
     os.mkdir("./Images to put in STIPphoto/Thumbnails")
     os.mkdir("./Replacement ImagesP")
     os.mkdir("./Original ImagesP")
+    os.mkdir("./STIContent to put in content")
 except FileExistsError:
     print("skipping making folders.")
 import Replacer
@@ -85,7 +86,8 @@ ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_",enable_events=
 
 ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
 
-ToolPE = [[sg.Text("hello")]]
+ToolPE = [[sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
+          [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
@@ -519,4 +521,10 @@ while True:
             sg.popup("Please reload the program for this to take effect.")
     if event == '_GitH_':
         webbrowser.open("https://github.com/weegeeday/Jackbox-sti-script")
+    if event == '_PEW_':
+        NNPT = "Test"
+        PN = 0
+        PromptParser.PromptParser.write(NNPT,PN)
+    if event == '_PER_':
+        PromptParser.PromptParser.read()
 window.close()
