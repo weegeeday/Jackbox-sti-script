@@ -88,7 +88,8 @@ ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, 
 
 ToolPE = [[sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
           [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
-          [sg.InputText(key='_PEPNP_')]]
+          [sg.InputText(key='_PEPNP_')],
+          [sg.InputText(key='_PEPT_')]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
@@ -523,7 +524,7 @@ while True:
     if event == '_GitH_':
         webbrowser.open("https://github.com/weegeeday/Jackbox-sti-script")
     if event == '_PEW_':
-        NNPT = u"{\u0022text\u0022:" + u"\u0022Test\u0022" + "}"
+        NNPT = {"text": str(values['_PEPT_'])}
         PN = int(values['_PEPNP_'])
         PromptParser.PromptParser.write(NNPT,PN)
     if event == '_PER_':
