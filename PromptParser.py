@@ -1,7 +1,9 @@
 import json
 import os
-
+import time
 class PromptParser():
+    global firstWriteD
+    firstWriteD = False
     @staticmethod
     def read():
         global PF
@@ -27,14 +29,52 @@ class PromptParser():
             PN = PN + 1       
     @staticmethod
     def write(NPPT,PN):  
-        NPF = open("./STIContent to put in content/STIPrompt.jet","x")
-        PP["text"] = NPPT
-        print("PP[]=" + str(PP["text"]) + "PP=" + str(PP))
-        P["prompt"] = PP["text"]
-        print("P[]=" + str(P["prompt"]) + "P=" + str(P))
-        PFJ[PN] = P
-        print("PFJ[]=" + str(PFJ[PN]) + "PFJ=" + str(PFJ))
-        PFJ2["content"] = PFJ
-        json.dump(PFJ2,NPF)
-
+        global firstWriteD
+        global PF
+        global PP
+        global P
+        global PFJ
+        global PFJ2
+        if firstWriteD == False:
+            try:
+                NPF = open("./STIContent to put in content/STIPrompt.jet","x")
+            except FileExistsError:
+                os.remove("./STIContent to put in content/STIPrompt.jet")
+                time.sleep(2)
+                NPF = open("./STIContent to put in content/STIPrompt.jet","x")
+            PP["text"] = NPPT
+            print("PP[]=" + str(PP["text"]) + "PP=" + str(PP))
+            P["prompt"] = PP["text"]
+            print("P[]=" + str(P["prompt"]) + "P=" + str(P))
+            PFJ[PN] = P
+            print("PFJ[]=" + str(PFJ[PN]) + "PFJ=" + str(PFJ))
+            PFJ2["content"] = PFJ
+            json.dump(PFJ2,NPF)
+            firstWriteD = True
+            return
+        elif firstWriteD == True:
+            NPF = open("./STIContent to put in content/STIPrompt.jet","r")
+            NPFJ = NPF.read()
+            PFJ = json.loads(NPFJ)
+            PFJ2 = PFJ
+            PFJ = PFJ["content"]
+            P = PFJ[PN]
+            PP = P["prompt"]
+            NPF.close()
+            NPF = open("./STIContent to put in content/STIPrompt.jet","w")
+            PP["text"] = NPPT
+            print("PP[]=" + str(PP["text"]) + "PP=" + str(PP))
+            P["prompt"] = PP["text"]
+            print("P[]=" + str(P["prompt"]) + "P=" + str(P))
+            PFJ[PN] = P
+            print("PFJ[]=" + str(PFJ[PN]) + "PFJ=" + str(PFJ))
+            PFJ2["content"] = PFJ
+            try:
+                json.dump(PFJ2,NPF)
+            except FileExistsError:
+                os.remove("./STIContent to put in content/STIPrompt.jet")
+                time.sleep(2)
+                json.dump(PFJ2,NPF)
+            NPF.close()
+            return        
 PPRun = PromptParser()
