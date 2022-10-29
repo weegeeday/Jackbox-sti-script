@@ -87,7 +87,7 @@ ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_",enable_events=
 ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
 
 ToolPE = [[sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
-          [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
+          [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Checkbox("Loop",key="_CHL_")],
           [sg.InputText(key='_PEPNP_')],
           [sg.InputText(key='_PEPT_')]]
 
@@ -526,7 +526,16 @@ while True:
     if event == '_PEW_':
         NNPT = {"text": str(values['_PEPT_'])}
         PN = int(values['_PEPNP_'])
-        PromptParser.PromptParser.write(NNPT,PN)
+        loop = False
+        PromptParser.PromptParser.write(NNPT,PN,loop)
+        sg.popup("Done!")
     if event == '_PER_':
         PromptParser.PromptParser.read()
+    if event == '_PEW_' and values['_CHL_'] == True:
+        print("Loop=True")
+        NNPT = {"text": str(values['_PEPT_'])}
+        PN = int(values['_PEPNP_'])
+        loop = True
+        PromptParser.PromptParser.write(NNPT,PN,loop)
+        sg.popup("Done!")
 window.close()
