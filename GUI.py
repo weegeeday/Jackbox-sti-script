@@ -55,7 +55,7 @@ SRIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAYAAABnli/DAAAAAXNSR0IB2cksfwAAAAlwSF
 SIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAIdQTFRFAAAAHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVs////////////HbVs////////////////////////////////HbVs////////HbVs////////HbVs////////////////////////HbVsHbVs////////////////////////HbVs////XmilpwAAAC10Uk5TAGb/zDNcKdbrRxA/IHpgr7+PT0D/gB/A8MJwoJmwXzDPf2+the9Q0N/gkAqfi0rfYgAAAm1JREFUeJztl317siAUxpmr2dC5lGO4zKlrSvrs+3++5wBOa9nCrHV1Xd1/8CYHf+INKCF3XUcPltLDtTmG6BaZHzXz47U5zDSZPhHyZGtmW5ank2szHZNtzZ6fZ1YjVbbPODx13DOOpvVi9ejFLNZ7nc/nfvBrHwbhGSh3tJj1Mc8WJrEcIs45wI9m4M1VlV2A+a0P2bLeDEKXEMuMLn+07zJfQB2mvVrZXc0gNIEdp7L3ICXSv5A5jkPTDDBztZ9lkuZB098N8pS4DlW9P9pmY7WYa7TD4rN9AINQDmlXQUSUL72gxLjKQu0NTGKsFaXsWhZYfA2BYVSheg1k/oa2tYNX5sjojSygTdktBCM0VN7t8TODgqekjDayK2BXVxSSuarwsV1vKHOD2WzJE1VZmUUmOEWZz2Qx1nPOi0PMlXy6WnLGMiE0ktmp6/N0ZsJqoQ1BIs25lOi9zGq5loDmEFVzGZmj4p32jHtJZhT1IsB3C99iB5jDttxcVnPOInxT+VDsxY6f/6133G2kEhIEEUyLHmVuXom2CCnrCoqBG8eIfaMRk4zVpmtomJMDzBzUvArNTKShBrp6xP7Mtm5ZQ9m2i0xlod6+95g9VS6hZU6HMq/7z8G1QSjf+IETfEEkD40KcjxCfDndMfh57iLVPM/ZPjPO8Ffug9zdWfbhOEHW0htqxPeGJ9SqS9QuR2tZjuT2QONITWIots+UjpmihQWL0TqpGqEqf7tLn6Z9zFPDYMa2j8LtylGJSKaUsVM+VS/8/bwvtQRLqEcM8ef/KTzL80wfjOP0h/+DXsIFX45Hvsn/7ltkvusurf+e+jX6cSOldAAAAABJRU5ErkJggg=="
 IIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAF1QTFRFAAAAHbVs////////////////////////////////////////////////////////////////////////////////////////////////////////////////////hSVPTwAAAB90Uk5TAP8IHw8Qb5+/MEP/gdDwwEBg34/P74BQsKCQIHDgT4SOFKUAAAE4SURBVHic7djRboMgFAZg2MZqewaoVVrbru//mEMsisqFgUM6Ev8LPdHkz1djFEvInj1bQ8e8W7I1dJZ3azbFhWaCfjHnu/8da6TOENP38fm1OMK+D8UxpnKZUUjdKaLwBD+LI1xImZm5hCqizhOvLwrtMZfhbb6MOjp/eoQ3DmZZVTXAmempgaYo9F19rqE9sDjuXIdshkaoyxUUIaqDTuk9h9vlBjUC2tHhmuGut7Il9t5Q8NDbR/8rYpPMfO1nBcyapTBnf5vwZo8O12yup+q5g1lIc1ZCeLNHl9YMGZplbc5yHt7s0aU1m1HPXXjzpKPrEeGdsjIz0T7LZytwHtArKca7e2Umdw4AHGXd4S7rXnOq1SgrMS5ynwk6raCRqtNloFpzFmv+LL+tsvyGJTn+V7Bnj80fh9sM1IL1VnMAAAAASUVORK5CYII="
 GITI = "iVBORw0KGgoAAAANSUhEUgAAAFUAAAAOCAMAAABpYqBcAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAFRQTFRFAAAA////////////////////////////////////////////////////////////////////////////////////////////////////////////MF88lgAAABx0Uk5TADB/r7+fX4D/ED/AQJDwsGDQz+9wIOCgUN9Pj9+dIu8AAAFZSURBVHictZNtd8IgDIVDpyNZSS1SWur+//9cQkGpunnOdna/iNfch5dEAADTvR2O77KwCEAfsoDewp0c3js/y2JvLQ8nSdqa/jPV4Zg/xzatVHpBpXujle+bU0tY1AuVEc+Ss30hyuYBw1gr+ymgkwBiJ1+RD4hH3YarY1tqPWuwFOdlR/URJoylMpwiEXsDZp6EgROYQUB2cJCGEQwmvX7XdTuq1+h5R9U6z3V/ORhla5IqXJQhVUoGXuWnvOg97qhcYA1V/aU8l52zfRCdsdzXoYnyKgBJ8XztRkO1z6lcqZudnOoZlQO9oo6PL6B2zJbq+gJ5nlguQn69ENBnoRq8tNQku5t56xZJMDZUWFYj7KTdShBXbW6Q/gUNk04D+rRRgYc8WYUKC+I8bZMlVbfJgmuS9awe8aQNXDYjK7rvR5rc4+omY/ILWDCV8KTol8KHP/h/UL8AVUkSWCGq9Z8AAAAASUVORK5CYII="
-PEIcon = IIcon
+PEIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAYAAABnli/DAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAACHRJREFUeJztnHlMFFccxxetVURZYM85tmCtidVYQWu1p7RVtKUIIoiyAisgULQtTT0a0+qqtZZaENAqVJG1igfetiZN+oer9ohpWqxVYzQBeiXGHmzUyqFm+3vre+1jmB1mlWUWM9/kZZk3v/m937z57G9+82aDRtNzCqI3QmeN62/+ePaHzCdz/uL2zLvN78u/zWzOOGsqTdX2YEyqVPmkoJBJjw7Wpj8xMjR1rAW2+2ozJuhM62ZWsjuyW5iqOb+aN6bXmyrSzgHU7eZN1vNKB6xKlZiCgp8aGqFbMmURZOCbprKZX4bnP/uCecOsDVxtznV2+9xvzZXWscQYgD7PbM1qVzJgVapENWBs5B2Qq6wuc0Xad+ZN6Q1cbfYtfn9+G7cr9wL76dwptD1Tk3WGq8u7pVS8qlSJ6gFGq9W/PXUJAtlYnLwpZMrICVBO1PJ789ysw/Y3U525D8qMGGIPdmP5AwVXmOqMP5SMW5UqobT6pS8tBUCvGT+YvjE0ZcxogHg9wNrK7cpxMVszb5hKUg5B2ZHG7c41ANgT2G22b1ANDcAXKx28KlVEYYZl8XaokVuNa5Iqgp8eOgKgLrccKWzj9uadgIe8pVAvH2C2ZDSzWzN/YzbPsQPEx6Hk+Ac9FGqznuyv9Amo8k1utzsa2jFoNqm+3qZww8ppqxHIhvcSSwc+88gwdmdOJQsPewDySXjgexEZAdCPwd87PEBDyQHtumld6npt5gSdP4KCCY11i6sZ2nJ/jKmE4FzKUPPxmK4UK8MHmV97F329BvAI4+rEYsjCVw0rEtY8YAq1mMrTqvjDhe0A8jcAbyxtDJn4dcjIl1ENba60/qG3J4zUCNaiu0vUxDrw36jZoTUJJ7w3C87DiZqPxyCdpuZF2MJk+BADNwz3R0nZBaIioKRYy1Ra/zYsf2VV34gQFmpiB9TDLVzdvO8A5GdoY8tn8xP5ffmnICNfNVdZN5pKU2cb184I9Vdw3iYRT7gL7fDX2D2pe4DZp2NEfMiCtFfAbCxOfofZlH5FD7Xyg8PNFsjEh9ALEAC5gT9YsIO2BZDjLYcLzwHgrfAAWBJeONHzIsWf8UlNIgbgv9upG9+q8S2xntxrBb6OUbdhZJMk4lfUD6gGf4lQW0f1NyJbgQ9yW47GvpopW5vIeTTjdoxqHXyKxOkTzPj8heeTJJxft6CkQJ/UcY1UfD6VRX5X+PzYcbpFcfHBj0dajB+l1AGstzzryLXZMZajC4YRO7RqAf1fs9uzWyErozXnBI2fSgtaMmGOorYbMRRl+CKU4X3koqHbchHed1rMtxc/DmyLPg9hmyLcXNg2jPJB4q7H49hwIzHbKVtSNjXhv0mL6mJuZMNMxSOMpVkkng5zjrfJ+Tup+Gxyxu5JocwaYixNqeP357dwO3MaIPM+TBsAyGOgRv7qzqpF6npowy1HCgf1RHDeYKbgbKL6CChFAtswDGeTW1BH4osrBJH4sQlsSb9T0G8T2lNxu0TGdHoZs4PfroT9C7P5f03kPMVi6fSFFptzb9ch0NTfVJqyGx7mCMg8vRNAHsHW5pxCNTTUx1V41cLvGZmImsRG6kKRWx66OLGUrQc2CR92kX0ExCSqz5sfu9AW90dJXPxOt2JqTGHsThlTQvshc+AUayLxScUiFrtkX6AJgYze7LXxhwtb+AMFkfROqJFRBr7G1ea0o4fC4PFDeiQb06ImsYm6UA4MlljGOy3ioxM8Iv7tAj9OEVu7hB9vF79IxFb2mFLCPro85i5i6V0wD4ofFQLlQg087LVxO3MvQgnRobSAh79Iz8uSXbntUEvvgq4BSsTpyyRKQFikwuyRTWYsvQNmAHSAYWUCByVFNdTIN+HzDIA8irZhtmay7DbbGQD5pql85hcahUBG6iaYpcAitbdNhp+7gblT3NSYwtKm05hS8gHmaBmxSMYeiDAHQSaexTqyGtja7Daog38AkMeRnZajC1gAeQiA/BP6wb250toA8L+rZMDdBDNZk673cgxSlAw/dwNzow9jdrKVklyYsW1TF7GIxU73ef1CKKEg3cI4xlSRVgqwXof6+ILl8wUdfsYJpcU2gPss7LvN7y9wKg0yUnfAjPcREGugTcR+a3BfmRw/dwkzgugYHjNaYkziG61fJ2J7yTd45MsCbbmXFkvZkueGg4JYXHJgxv0uPN4bxIdUfP5SkG5xHAslQwnA2sruyHYxWzLfA6gNxMCz/LZ97ikEMrc3/6BGwdKCVnfBjPeT2plWJ7/dDHOS+//sR+QQOR7dPRwUXKLjiIwpJbvA3ibYT9bcvcUuPD5WcC6d5sjvMqxO1JvK095Hr6DZbXO/h88fuT25l/l9ee/zh15lPT/jROvI27NbuLq83ZoAAdlfct/JSn7NKhQQsXg7qis4e0o4NkWy6r2qj/HD5OeYmqw/oZ2EMmOysXh6EmThevSSBLLzWoD4OJQY7ZC5q5RYfrsfJYRZVTfIsCJBb65Iq4LMe1H39tQZuLufB2jI0PAg6AKg/4EM/bupNJWXdKZKtlSYu199dIunjAdom5lKax1sDyQ7UIaG+vl7aG1Qgqzj9sybjZbtFIz1vhIuZZy99XYecNKvnKY1lqTUcbtzL+nemhyHu4P177ycBBCfgIx8Ff36LeLNSaymB19Rq1Llq4IGJ8fEQG18zVyZfgS2B+kWTp7MVFn3cLU5FyBb/wnZeQ30cRoVZFWBLFNJyoPm8pknoXz4Jfy15/OZzXMO83vzLrGOLBc86G02FidPNKxK1GtUkFUFuvo9FDEaQL4F8N5AQKMMjUoO3aK48YZl8Wh9uY/SMapSJUtsdcbP/IECNzT0+4qTg6fHjNGvSED/C06FWFXvElOd0YqA7hcZEY1KDo1aTqgKYP0L0nHdGi14/tUAAAAASUVORK5CYII="
 ISDIR = False
 GUID = True
 SteamLibrary = []
@@ -87,9 +87,9 @@ ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_",enable_events=
 ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
 
 ToolPE = [[sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
-          [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Checkbox("Loop",key="_CHL_")],
-          [sg.InputText(key='_PEPNP_')],
-          [sg.InputText(key='_PEPT_')]]
+          [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
+          [sg.Text("Prompt Number:"),sg.InputText(key='_PEPNP_')],
+          [sg.Text("Prompt Text:"),sg.InputText(key='_PEPT_')]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
@@ -100,7 +100,7 @@ ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Canvas(background_color="#121212",size=(10,10),key='_c4_')],
                [sg.Button(key='_I_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=IIcon)],
                [sg.Canvas(background_color="#121212",size=(10,10),key='_c5_')],
-               [sg.Button(key='_PE_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=PEIcon)],
+               [sg.Button(key='_PE_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=PEIcon,disabled=False,disabled_button_color="#505050")],
                  ]
 window2 = sg.Window('STI Image Script', layoutLOAD)
 progress_bar = window2['_progressbar_']
@@ -524,18 +524,23 @@ while True:
     if event == '_GitH_':
         webbrowser.open("https://github.com/weegeeday/Jackbox-sti-script")
     if event == '_PEW_':
-        NNPT = {"text": str(values['_PEPT_'])}
+        NNPTT = str(values['_PEPT_'])
+        NNPT = {"text": NNPTT}
         PN = int(values['_PEPNP_'])
-        loop = False
-        PromptParser.PromptParser.write(NNPT,PN,loop)
+        PromptParser.PromptParser.write(NNPT,PN)
         sg.popup("Done!")
+        print("disabling accses to PE Tool.")
+        sg.popup("The Prompt Tool has many issues, and writing multiple prompts is broken. The tool will now be locked.")
+        window['_RR_'].update(button_color="#323232")
+        window['_SR_'].update(button_color="#121212")
+        window['_S_'].update(button_color="#121212")
+        window['_I_'].update(button_color="#121212")
+        window['_PE_'].update(button_color="#121212",disabled=True)
+        window['_IF_'].update(visible=False)
+        window['_OF_'].update(visible=False)
+        window['_FRF_'].update(visible=True)
+        window['_SRF_'].update(visible=False)
+        window['_PEF_'].update(visible=False)
     if event == '_PER_':
         PromptParser.PromptParser.read()
-    if event == '_PEW_' and values['_CHL_'] == True:
-        print("Loop=True")
-        NNPT = {"text": str(values['_PEPT_'])}
-        PN = int(values['_PEPNP_'])
-        loop = True
-        PromptParser.PromptParser.write(NNPT,PN,loop)
-        sg.popup("Done!")
 window.close()
