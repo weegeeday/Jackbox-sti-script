@@ -524,23 +524,8 @@ while True:
     if event == '_GitH_':
         webbrowser.open("https://github.com/weegeeday/Jackbox-sti-script")
     if event == '_PEW_':
-        NNPTT = str(values['_PEPT_'])
-        NNPT = {"text": NNPTT}
-        PN = int(values['_PEPNP_'])
-        PromptParser.PromptParser.write(NNPT,PN)
+        PromptParser.PromptParser.write()
         sg.popup("Done!")
-        print("disabling accses to PE Tool.")
-        sg.popup("The Prompt Tool has many issues, and writing multiple prompts is broken. The tool will now be locked.")
-        window['_RR_'].update(button_color="#323232")
-        window['_SR_'].update(button_color="#121212")
-        window['_S_'].update(button_color="#121212")
-        window['_I_'].update(button_color="#121212")
-        window['_PE_'].update(button_color="#121212",disabled=True)
-        window['_IF_'].update(visible=False)
-        window['_OF_'].update(visible=False)
-        window['_FRF_'].update(visible=True)
-        window['_SRF_'].update(visible=False)
-        window['_PEF_'].update(visible=False)
     if event == '_PER_':
         PromptParser.PromptParser.read()
 window.close()
