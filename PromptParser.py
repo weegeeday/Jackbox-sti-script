@@ -4,6 +4,11 @@ import time
 class PromptParser():
     @staticmethod
     def read():      
+        global PF
+        global PP
+        global P
+        global PFJ
+        global PFJ2 
         PN = 0
         OTLP = open("./PL.txt", "w")
         OTLPE = open("./PLE.txt", "w")
@@ -25,6 +30,11 @@ class PromptParser():
     
     @staticmethod
     def write():
+        global PF
+        global PP
+        global P
+        global PFJ
+        global PFJ2
         PN = 0  
         PELF = open("./PLE.txt","r")
         PEL = PELF.readlines()
@@ -33,34 +43,30 @@ class PromptParser():
         except FileExistsError:
             os.remove("./STIContent to put in content/STIPrompt.jet")
             time.sleep(2)
-            NPF = open("./STIContent to put in content/STIPrompt.jet","x")        
-        NPFJ = NPF.read() #not readable error here
-        PFJ = json.loads(NPFJ)    
-        PFJ2 = PFJ
-        PFJ = PFJ["content"]
+            NPF = open("./STIContent to put in content/STIPrompt.jet","x")
         P = PFJ[PN]
         PP = P["prompt"]
-        PP["text"] = PEL[PN]
+        PPT = str(PEL[PN]).rstrip("\n")
+        PP["text"] = {"text": str(PPT)}
+        print("PP['text'] = " + str(PP["text"]))
         P["prompt"] = PP["text"]
         PFJ[PN] = P
         PFJ2["content"] = PFJ
+        PFJ = PFJ2["content"]
         #loop after first time writing a prompt
+        PN = PN + 1
         while PN != 187:
-            PFJ = PFJ2 #instead of loading original prompt file, load new one made before and edit it again.
-            PFJ = PFJ["content"]
             P = PFJ[PN]
             PP = P["prompt"]
-            PP["text"] = PEL[PN]
+            PPT = str(PEL[PN]).rstrip("\n")
+            PP["text"] = {"text": str(PPT)}
+            print("PP['text'] = " + str(PP["text"]))
             P["prompt"] = PP["text"]
             PFJ[PN] = P
             PFJ2["content"] = PFJ
+            PFJ = PFJ2["content"]
+            PN = PN + 1
         #write finished file
         json.dump(PFJ2,NPF)
         
 PPRun = PromptParser()
-#REWRITE ENTIRE WRITE METHOD
-#use a system of having all the new prompts in a text file
-#read text file and based on line number transplant into STIPrompt.jet
-#listbox and ui redone needed too
-#as of now, only writing one prompt works.
-#after that errors with str and such happen.
