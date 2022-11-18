@@ -315,7 +315,6 @@ elif Linux == False:
     window = sg.Window('STI Image Script Windows', layout,size=(725,280))
     window.refresh()
 print("while true loop")
-sg.main_open_github_issue()
 while True:
     event, values = window.read(timeout=50)
     ImgR = next(os.walk(dir))[2]
