@@ -86,10 +86,28 @@ ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_",enable_events=
 
 ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
 
-ToolPE = [[sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
-          [sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
-          [sg.Text("Prompt Number:"),sg.InputText(key='_PEPNP_')],
-          [sg.Text("Prompt Text:"),sg.InputText(key='_PEPT_')]]
+PETL1VR = open("./PLE.txt", "r")
+PETL1V = PETL1VR.read()
+PETL2VR = open("./JPE.txt", "r")
+PETL2V = PETL2VR.read()
+PETL3VR = open("./PPE.txt", "r")
+PETL3V = PETL3VR.read()
+PETL4VR = open("./SPE.txt", "r")
+PETL4V = PETL4VR.read()
+ToolPETL1 = [[sg.Listbox(PETL1V,key="_PETL1K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
+ToolPETL2 = [[sg.Listbox(PETL2V,key="_PETL2K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
+ToolPETL3 = [[sg.Listbox(PETL3V,key="_PETL3K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
+ToolPETL4 = [[sg.Listbox(PETL4V,key="_PETL4K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
+PETL1VR.close()
+PETL2VR.close()
+PETL3VR.close()
+PETL4VR.close()
+ToolPET = [[sg.Tab("?1",layout=ToolPETL1,background_color="#121212"),sg.Tab("?Job",layout=ToolPETL2,background_color="#121212"),sg.Tab("?Photo",layout=ToolPETL3,background_color="#121212"),sg.Tab("?Store",layout=ToolPETL4,background_color="#121212")]]
+
+
+ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232"),sg.Button("Reset",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PER_"),sg.Button("Load",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEL_"),sg.Button("Export",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEE_")],
+          [sg.InputText(key="_PEIT_",expand_y=True)],
+          [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
                [sg.Button(key='_RR_',mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=0,expand_y=True,s=(10,1),image_data=RRIcon)],
@@ -252,6 +270,7 @@ time.sleep(0.5)
 progress_bar.Update(x5)
 time.sleep(0.5)     
 window2.close()
+print("window2 close")
 STICWR = open("./STIC.txt","w")
 STICWR.write(str(str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content"))
 STICWR.close()
@@ -295,6 +314,8 @@ elif Linux == False:
     layout = [[sg.Column(ToolSelect, element_justification='c'), sg.VSeperator(),sg.Column(ToolWindow, element_justification='c',key='_ToolVC_')]]
     window = sg.Window('STI Image Script Windows', layout,size=(725,280))
     window.refresh()
+print("while true loop")
+sg.main_open_github_issue()
 while True:
     event, values = window.read(timeout=50)
     ImgR = next(os.walk(dir))[2]
@@ -524,8 +545,23 @@ while True:
     if event == '_GitH_':
         webbrowser.open("https://github.com/weegeeday/Jackbox-sti-script")
     if event == '_PEW_':
-        PromptParser.PromptParser.write()
+        SPN = 1
+        PromptParser.PromptParser.write(SPN)
         sg.popup("Done!")
     if event == '_PER_':
         PromptParser.PromptParser.read()
+    if event == '_PETL1K_':
+        values[0] = str(values['_PETL1K_'][0])
+        window['_PEIT_'].update(values[0])
+    if event == '_PETL2K_':
+        values[0] = str(values['_PETL2K_'][0])
+        window['_PEIT_'].update(values[0])
+    if event == '_PETL3K_':
+        values[0] = str(values['_PETL3K_'][0])
+        window['_PEIT_'].update(values[0])
+    if event == '_PETL4K_':
+        values[0] = str(values['_PETL4K_'][0])
+        window['_PEIT_'].update(values[0])
+    print("Test")
+print("window close")
 window.close()
