@@ -1,2 +1,2 @@
-#ignore config files
-*.config
+#ignore OpenAI config file
+/*.config
