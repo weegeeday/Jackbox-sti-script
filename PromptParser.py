@@ -1,9 +1,10 @@
 import json
 import os
-import time
+import time 
 class PromptParser():
     @staticmethod
-    def read():      
+    def read():
+        print("read timePE")      
         global PF
         global PP
         global P
@@ -11,7 +12,11 @@ class PromptParser():
         global P3
         global P4
         global PFJ
-        global PFJ2 
+        global PFJ2
+        #P = None
+        #P2 = None
+        #P3 = None
+        #P4 = None
         PN = 0
         PFC = 0
         JPE = open("./JPE.txt", "w")
@@ -34,6 +39,7 @@ class PromptParser():
         PF6.close()
         while PFC != 3:  
             while PN != 187:
+                global P
                 PFJ = json.loads(PF)
                 PFJ2 = PFJ
                 PFJ = PFJ["content"]
@@ -43,8 +49,10 @@ class PromptParser():
                 OTLPE.write(str(PPT + "\n"))
                 PN = PN + 1
                 PFC = PFC + 1
+                print("PFC=" + str(PFC))
             PN = 0
             while PN != 38:
+                global P2
                 PFJ = json.loads(PF3)
                 PFJ2 = PFJ
                 PFJ = PFJ["content"]
@@ -54,8 +62,10 @@ class PromptParser():
                 JPE.write(str(PPT + "\n"))
                 PN = PN + 1
                 PFC = PFC + 1
+                print("PFC=" + str(PFC))
             PN = 0
             while PN != 195:
+                global P3
                 PFJ = json.loads(PF5)
                 PFJ2 = PFJ
                 PFJ = PFJ["content"]
@@ -65,8 +75,10 @@ class PromptParser():
                 PPE.write(str(PPT + "\n"))
                 PN = PN + 1
                 PFC = PFC + 1
+                print("PFC=" + str(PFC))
             PN = 0
             while PN != 58:
+                global P4
                 PFJ = json.loads(PF7)
                 PFJ2 = PFJ
                 PFJ = PFJ["content"]
@@ -76,16 +88,16 @@ class PromptParser():
                 SPE.write(str(PPT + "\n"))
                 PN = PN + 1
                 PFC = PFC + 1
+                print("PFC=" + str(PFC))                
+            break
+                
 
     
     @staticmethod
     def write(SPN):
+        print("write timePE")
         global PF
         global PP
-        global P
-        global P2
-        global P3
-        global P4
         global PFJ
         global PFJ2
         global SPNS

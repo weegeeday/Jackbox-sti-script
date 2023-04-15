@@ -117,7 +117,7 @@ PETL4VR.close()
 ToolPET = [[sg.Tab("?1",layout=ToolPETL1,background_color="#121212"),sg.Tab("?Job",layout=ToolPETL2,background_color="#121212"),sg.Tab("?Photo",layout=ToolPETL3,background_color="#121212"),sg.Tab("?Store",layout=ToolPETL4,background_color="#121212")]]
 
 
-ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232"),sg.Button("Reset",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PER_"),sg.Button("Load",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEL_"),sg.Button("Export",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEE_")],
+ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232"),sg.Button("Reset",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PERE_"),sg.Button("Load",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEL_"),sg.Button("Export",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEE_")],
           [sg.InputText(key="_PEIT_",expand_x=True)],
           [sg.InputText(key="_TEMPSPN_",expand_x=True)],
           [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')]]
