@@ -98,26 +98,23 @@ ToolO = [ [sg.Checkbox("Force load Linux/MacOSX mode",key="_FLL_",enable_events=
 
 ToolI = [ [sg.Text("Made by Weegeeday")],[sg.Text("Libraries used: PySimpleGUI, vdf, json, webbrowser and Pillow")],[sg.Text("horse")],[sg.Text("hi yahiamice")],[sg.Button(key="_GitH_",enable_events=True,mouseover_colors=("#323232","#505050"),button_color="#121212",border_width=2,image_data=GITI)] ]
 
-PETL1VR = open("./PLE.txt", "r")
-PETL1V = PETL1VR.read()
-PETL2VR = open("./JPE.txt", "r")
-PETL2V = PETL2VR.read()
-PETL3VR = open("./PPE.txt", "r")
-PETL3V = PETL3VR.read()
-PETL4VR = open("./SPE.txt", "r")
-PETL4V = PETL4VR.read()
+with open("./PLE.txt", "r") as f:
+    PETL1V = [line.strip() for line in f.readlines()]
+with open("./JPE.txt", "r") as f:
+    PETL2V = [line.strip() for line in f.readlines()]
+with open("./PPE.txt", "r") as f:
+    PETL3V = [line.strip() for line in f.readlines()]
+with open("./SPE.txt", "r") as f:
+    PETL4V = [line.strip() for line in f.readlines()]
 ToolPETL1 = [[sg.Listbox(PETL1V,key="_PETL1K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
 ToolPETL2 = [[sg.Listbox(PETL2V,key="_PETL2K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
 ToolPETL3 = [[sg.Listbox(PETL3V,key="_PETL3K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
 ToolPETL4 = [[sg.Listbox(PETL4V,key="_PETL4K_",select_mode="LISTBOX_SELECT_MODE_SINGLE",background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)]]
-PETL1VR.close()
-PETL2VR.close()
-PETL3VR.close()
-PETL4VR.close()
-ToolPET = [[sg.Tab("?1",layout=ToolPETL1,background_color="#121212"),sg.Tab("?Job",layout=ToolPETL2,background_color="#121212"),sg.Tab("?Photo",layout=ToolPETL3,background_color="#121212"),sg.Tab("?Store",layout=ToolPETL4,background_color="#121212")]]
+ToolPET = [[sg.Tab("?1",layout=ToolPETL1,background_color="#121212",key='_PETL1T_'),sg.Tab("?Job",layout=ToolPETL2,background_color="#121212",key='_PETL2T_'),sg.Tab("?Photo",layout=ToolPETL3,background_color="#121212",key='_PETL3T_'),sg.Tab("?Store",layout=ToolPETL4,background_color="#121212",key='_PETL4T_')]]
 
 
-ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232"),sg.Button("Reset",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PERE_"),sg.Button("Load",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEL_"),sg.Button("Export",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEE_")],
+ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232",expand_x=True,expand_y=True,key='_PETABG_')],
+          [sg.Button("Reset",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PERE_"),sg.Button("Load",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEL_"),sg.Button("Export",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key="_PEE_")],
           [sg.InputText(key="_PEIT_",expand_x=True)],
           [sg.InputText(key="_TEMPSPN_",expand_x=True)],
           [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')]]
@@ -452,14 +449,6 @@ while True:
         window['_FRF_'].update(visible=False)
         window['_SRF_'].update(visible=False)
         window['_PEF_'].update(visible=True)
-        PETL1VR = open("./PLE.txt", "r")
-        PETL1V = PETL1VR.read()
-        PETL2VR = open("./JPE.txt", "r")
-        PETL2V = PETL2VR.read()
-        PETL3VR = open("./PPE.txt", "r")
-        PETL3V = PETL3VR.read()
-        PETL4VR = open("./SPE.txt", "r")
-        PETL4V = PETL4VR.read()
     if Linux == True and event == '_SRSD_':
         dir_nameL = str(values['_STIPSRDIR_'])
         ImgFO = sorted( filter( lambda x: os.path.isfile(os.path.join(dir_nameL, x)),
@@ -569,6 +558,19 @@ while True:
         sg.popup("Done!")
     if event == '_PER_':
         PromptParser.PromptParser.read()
+        with open("./PLE.txt", "r") as f:
+            PETL1V = [line.strip() for line in f.readlines()]
+        with open("./JPE.txt", "r") as f:
+            PETL2V = [line.strip() for line in f.readlines()]
+        with open("./PPE.txt", "r") as f:
+            PETL3V = [line.strip() for line in f.readlines()]
+        with open("./SPE.txt", "r") as f:
+            PETL4V = [line.strip() for line in f.readlines()]
+        window['_PETL1K_'].update(PETL1V)
+        window['_PETL2K_'].update(PETL2V)
+        window['_PETL3K_'].update(PETL3V)
+        window['_PETL4K_'].update(PETL4V)
+        window.refresh()
     if event == '_PETL1K_':
         values[0] = str(values['_PETL1K_'][0])
         window['_PEIT_'].update(values[0])
@@ -583,19 +585,3 @@ while True:
         window['_PEIT_'].update(values[0])
 print("window close")
 window.close()
-sg.popup_notify(title="Cleaning up...", icon= sg.SYSTEM_TRAY_MESSAGE_ICON_INFORMATION)
-try:
-    os.remove("./dir_name.txt")
-    os.remove("./FL.txt")
-    os.remove("./JPE.txt")
-    os.remove("./Library.json")
-    os.remove("./PLE.txt")
-    os.remove("./PPE.txt")
-    os.remove("./Seed.txt")
-    os.remove("./SPE.txt")
-    os.remove("./STIC.txt")
-    sg.popup_notify(title="Cleaned up!")
-except PermissionError:
-    sg.popup_notify(title="Failed to clean up! ER=PE", icon= sg.SYSTEM_TRAY_MESSAGE_ICON_WARNING)
-except FileNotFoundError:
-    sg.popup_notify(title="Failed to clean up! ER=FNFR", icon= sg.SYSTEM_TRAY_MESSAGE_ICON_WARNING)
