@@ -1,2 +1,3 @@
 #ignore OpenAI config file
+/*.ini
 OpenAI.ini
