@@ -1,10 +1,20 @@
 import os
 import openai
 import configparser
+import json
 config = configparser.ConfigParser()
-with open('OpenAI.ini',"r") as configfille:
-    key = config.get("api_key",str)
-    org = config.get("org_id",str)
+config.read("OpenAI.ini")
+key = config["OPENAI"]["api_key"]
+org = config["OPENAI"]["org_id"]
 openai.organization = org
 openai.api_key = key
-openai.Model.list()
+class OpenAIRequest():
+    @staticmethod
+    def Completion(Model,Prompt,Temperature):
+        response = openai.Completion.create(
+            model = Model,
+            prompt = Prompt,
+            temperature = Temperature
+        )
+        print(response)
+#My openAI account has no credits, until i get a job i wont be able to finish this.
