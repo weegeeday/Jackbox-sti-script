@@ -92,6 +92,7 @@ class PromptParser:
             PPRun.STIPhotoWrite()
         if SPN == 4:
             PPRun.STIStoreWrite()
+
     
     @staticmethod
     def STIWrite():
@@ -138,7 +139,49 @@ class PromptParser:
         json.dumps(MPJ2,NPF)
 
     
-    
+    @staticmethod
+    def STIJobWrite():
+        print("STIJobWrite")
+        PN = 0
+        PPM = None
+        MP = None
+        MPJC = None
+        MPJ = None
+        #read text file of new prompts
+        NP = open("./JPE.txt","r")
+        NP = NP.readlines()
+        #create mod prompt file
+        try:
+            NPF = open("./STIContent to put in content/STIJobPrompt.jet","x")
+        except FileExistsError:
+            os.remove("./STIContent to put in content/STIJobPrompt.jet")
+            time.sleep(2)
+            NPF = open("./STIContent to put in content/STIJobPrompt.jet","x")
+        #read original file
+        while PN != 38:
+            global OP
+            OPJ = json.loads(OP) #OPJ = Original prompts JSON OP = Original Prompts
+            MPJ2 = OPJ #needed for making the new file
+            OPJC = OPJ["content"] #OPJC = Original prompts json content
+            OP = OPJC[PN] #PN = Prompt number OP = Original Pormpt
+            #The read is cut, since we dont need the rest.
+            print(str(PN))
+        #make new file
+        while PN != 38: #original version (down below) has a first write, might be needed.
+            OP = OPJC[PN] #OPM = Original prompt
+            OPP = OP["prompt"] #OPP = original prompt prompt
+            PMT = str(NP[PN]).rstrip("\n") #PMT = Prompt mod text
+            PPM = OPP
+            PPM["text"] = {"text": str(PMT)} #PPM = Prompt prompt mod
+            print("PPM['text'] = " + str(PPM["text"]))
+            MP["prompt"] = PPM["text"] #MP = Mod Prompt
+            MPJC[PN] = MP #MPJC = Mod prompt json content
+            MPJ2["content"] = MPJC #MPJ = Mod prompt json
+            MPJC = MPJ2["content"]
+            PN = PN + 1
+            time.sleep(0.3)
+            print(str(PN))
+        json.dumps(MPJ2,NPF)
     
     
     
