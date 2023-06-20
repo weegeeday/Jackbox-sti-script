@@ -1,7 +1,7 @@
 # Jackbox-sti-script
 This script automaticly mods the Survive The Internet images. <br />
 
-# How do i use this?
+# How do i use this? THIS IS OPTIONAL AND MOSTLY APPLIES TO NON-BUILT VERSIONS!
 Simple! <br />
 1.Make sure you have python is installed, and its on your [PATH](https://datatofish.com/add-python-to-windows-path/ "Adding Python to PATH"). <br />
 2.Run Setup.bat OR in cmd, run this: pip install -r requirements.txt <br />
