@@ -1,5 +1,5 @@
 # Jackbox-sti-script
-This script automaticly mods the Survive The Internet images. <br />
+This script automaticly mods the Survive The Internet images + more. <br />
 
 # How do i use this? THIS IS OPTIONAL AND MOSTLY APPLIES TO NON-BUILT VERSIONS!
 Simple! <br />
