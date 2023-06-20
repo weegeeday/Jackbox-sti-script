@@ -77,31 +77,27 @@ class PromptParser:
             break
                 
 
-    #REWRITE WHOLE WRITE FUNCTION!
-    #1. add support for the diffrent jet files
-    #2. fix isssue with SPNS = PFJ[PN] using the P4 read (since its the last one) and attach correct read per jet file
-    #3. try to make it more efficant and shit
+#Rewriting entire write method done!
+
     @staticmethod
-    def newwrite(SPN):
+    def newwrite(SPN,T):
         print("write time")
         if SPN == 1:
-            PPRun.STIWrite()
+            PPRun.STIWrite(PMT=T)
         if SPN == 2:
-            PPRun.STIJobWrite()
+            PPRun.STIJobWrite(PMT=T)
         if SPN == 3:
-            PPRun.STIPhotoWrite()
+            PPRun.STIPhotoWrite(PMT=T)
         if SPN == 4:
-            PPRun.STIStoreWrite()
+            PPRun.STIStoreWrite(PMT=T)
 
     
     @staticmethod
-    def STIWrite():
-        print("STIWrite")
+    def STIWrite(PMT):
+        print("STIWrite") #PMT = Prompt mod text
+        print(PMT)
         PN = 0
-        PPM = None
-        MP = None
         MPJC = None
-        MPJ = None
         #read text file of new prompts
         NP = open("./PLE.txt","r")
         NP = NP.readlines()
@@ -115,38 +111,55 @@ class PromptParser:
         #read original file
         while PN != 187:
             global OP
+            PFTD = open("./STIC.txt","r") #PFTD = Prompt file text dir
+            PFD = str(PFTD.read()) #PFD = Prompt file dir
+            OPF = open(str(PFD + "\STIPrompt.jet")) #OPF = Original prompt file
+            OP = OPF.read()
+            OPF.close()
+            PFTD.close() 
             OPJ = json.loads(OP) #OPJ = Original prompts JSON OP = Original Prompts
             MPJ2 = OPJ #needed for making the new file
             OPJC = OPJ["content"] #OPJC = Original prompts json content
             OP = OPJC[PN] #PN = Prompt number OP = Original Pormpt
             #The read is cut, since we dont need the rest.
+            PN = PN + 1
+            time.sleep(0.02)            
             print(str(PN))
         #make new file
+        PN = 0
         while PN != 187: #original version (down below) has a first write, might be needed.
             OP = OPJC[PN] #OPM = Original prompt
+            MP = OP
+            MPJC = OPJC
             OPP = OP["prompt"] #OPP = original prompt prompt
-            PMT = str(NP[PN]).rstrip("\n") #PMT = Prompt mod text
+            OPPT = OPP["text"] #OPPT = original prompt prompt text
+            print(OPPT)
             PPM = OPP
-            PPM["text"] = {"text": str(PMT)} #PPM = Prompt prompt mod
+            try: 
+                if PMT[PN] == None:
+                    PMT[PN] = OPPT
+                    print("On the fly none prompt!")
+                PPM["text"] = {"text": str(PMT[PN])} #PPM = Prompt prompt mod
+            except IndexError:
+                PMT[PN] = OPPT
             print("PPM['text'] = " + str(PPM["text"]))
             MP["prompt"] = PPM["text"] #MP = Mod Prompt
             MPJC[PN] = MP #MPJC = Mod prompt json content
             MPJ2["content"] = MPJC #MPJ = Mod prompt json
             MPJC = MPJ2["content"]
             PN = PN + 1
-            time.sleep(0.3)
+            time.sleep(0.02)
             print(str(PN))
-        json.dumps(MPJ2,NPF)
+            print(PMT)
+        json.dump(MPJ2,NPF)
 
     
     @staticmethod
-    def STIJobWrite():
-        print("STIJobWrite")
+    def STIJobWrite(PMT):
+        print("STIJobWrite") #PMT = Prompt mod text
+        print(PMT)
         PN = 0
-        PPM = None
-        MP = None
         MPJC = None
-        MPJ = None
         #read text file of new prompts
         NP = open("./JPE.txt","r")
         NP = NP.readlines()
@@ -160,88 +173,169 @@ class PromptParser:
         #read original file
         while PN != 38:
             global OP
+            PFTD = open("./STIC.txt","r") #PFTD = Prompt file text dir
+            PFD = str(PFTD.read()) #PFD = Prompt file dir
+            OPF = open(str(PFD + "\STIJobPrompt.jet")) #OPF = Original prompt file
+            OP = OPF.read()
+            OPF.close()
+            PFTD.close()             
             OPJ = json.loads(OP) #OPJ = Original prompts JSON OP = Original Prompts
             MPJ2 = OPJ #needed for making the new file
             OPJC = OPJ["content"] #OPJC = Original prompts json content
             OP = OPJC[PN] #PN = Prompt number OP = Original Pormpt
             #The read is cut, since we dont need the rest.
+            PN = PN + 1
+            time.sleep(0.02) 
             print(str(PN))
         #make new file
         while PN != 38: #original version (down below) has a first write, might be needed.
             OP = OPJC[PN] #OPM = Original prompt
+            MP = OP
+            MPJC = OPJC
             OPP = OP["prompt"] #OPP = original prompt prompt
-            PMT = str(NP[PN]).rstrip("\n") #PMT = Prompt mod text
             PPM = OPP
-            PPM["text"] = {"text": str(PMT)} #PPM = Prompt prompt mod
+            OPPT = OPP["text"] #OPPT = original prompt prompt text
+            print(OPPT)
+            PPM = OPP
+            try: 
+                if PMT[PN] == None:
+                    PMT[PN] = OPPT
+                    print("On the fly none prompt!")
+                PPM["text"] = {"text": str(PMT[PN])} #PPM = Prompt prompt mod
+            except IndexError:
+                PMT[PN] = OPPT
             print("PPM['text'] = " + str(PPM["text"]))
             MP["prompt"] = PPM["text"] #MP = Mod Prompt
             MPJC[PN] = MP #MPJC = Mod prompt json content
             MPJ2["content"] = MPJC #MPJ = Mod prompt json
             MPJC = MPJ2["content"]
             PN = PN + 1
-            time.sleep(0.3)
+            time.sleep(0.02)
             print(str(PN))
-        json.dumps(MPJ2,NPF)
-    
-    
-    
+            print(PMT)
+        json.dump(MPJ2,NPF)
+
+
+    @staticmethod
+    def STIPhotoWrite(PMT):
+        print("STIPhotoWrite") #PMT = Prompt mod text
+        print(PMT)
+        PN = 0
+        MPJC = None
+        #read text file of new prompts
+        NP = open("./PPE.txt","r")
+        NP = NP.readlines()
+        #create mod prompt file
+        try:
+            NPF = open("./STIContent to put in content/STIPhotoPrompt.jet","x")
+        except FileExistsError:
+            os.remove("./STIContent to put in content/STIPhotoPrompt.jet")
+            time.sleep(2)
+            NPF = open("./STIContent to put in content/STIPhotoPrompt.jet","x")
+        #read original file
+        while PN != 195:
+            global OP
+            PFTD = open("./STIC.txt","r") #PFTD = Prompt file text dir
+            PFD = str(PFTD.read()) #PFD = Prompt file dir
+            OPF = open(str(PFD + "\STIPhotoPrompt.jet")) #OPF = Original prompt file
+            OP = OPF.read()
+            OPF.close()
+            PFTD.close()             
+            OPJ = json.loads(OP) #OPJ = Original prompts JSON OP = Original Prompts
+            MPJ2 = OPJ #needed for making the new file
+            OPJC = OPJ["content"] #OPJC = Original prompts json content
+            OP = OPJC[PN] #PN = Prompt number OP = Original Pormpt
+            #The read is cut, since we dont need the rest.
+            PN = PN + 1
+            time.sleep(0.02) 
+            print(str(PN))
+        #make new file
+        while PN != 195: #original version (down below) has a first write, might be needed.
+            OP = OPJC[PN] #OPM = Original prompt
+            MP = OP
+            MPJC = OPJC
+            OPP = OP["prompt"] #OPP = original prompt prompt
+            PPM = OPP
+            OPPT = OPP["text"] #OPPT = original prompt prompt text
+            print(OPPT)
+            PPM = OPP
+            try: 
+                if PMT[PN] == None:
+                    PMT[PN] = OPPT
+                    print("On the fly none prompt!")
+                PPM["text"] = {"text": str(PMT[PN])} #PPM = Prompt prompt mod
+            except IndexError:
+                PMT[PN] = OPPT
+            print("PPM['text'] = " + str(PPM["text"]))
+            MP["prompt"] = PPM["text"] #MP = Mod Prompt
+            MPJC[PN] = MP #MPJC = Mod prompt json content
+            MPJ2["content"] = MPJC #MPJ = Mod prompt json
+            MPJC = MPJ2["content"]
+            PN = PN + 1
+            time.sleep(0.02)
+            print(str(PN))
+            print(PMT)
+        json.dump(MPJ2,NPF)
     
     @staticmethod
-    def write(SPN):
-        print("write timePE")
-        global PF
-        global PP
-        global PFJ
-        global PFJ2
-        global SPNS
-        if SPN == 1:
-            SPNS = PPRun.P
-        if SPN == 2:
-            SPNS = PPRun.P2
-        if SPN == 3:
-            SPNS = PPRun.P3
-        if SPN == 4:
-            SPNS = PPRun.P4
-        PN = 0  
-        PELF = open("./PLE.txt","r")
-        PEL = PELF.readlines()
+    def STIStoreWrite(PMT):
+        print("STIStoreWrite") #PMT = Prompt mod text
+        print(PMT)
+        PN = 0
+        MPJC = None
+        #read text file of new prompts
+        NP = open("./SPE.txt","r")
+        NP = NP.readlines()
+        #create mod prompt file
         try:
-            NPF = open("./STIContent to put in content/STIPrompt.jet","x")
+            NPF = open("./STIContent to put in content/STIStorePrompt.jet","x")
         except FileExistsError:
-            os.remove("./STIContent to put in content/STIPrompt.jet")
+            os.remove("./STIContent to put in content/STIStorePrompt.jet")
             time.sleep(2)
-            NPF = open("./STIContent to put in content/STIPrompt.jet","x")
-        print(str(SPNS))
-        SPNS = PFJ[PN]
-        print(str(SPNS))
-        PP = SPNS["prompt"]
-        PPT = str(PEL[PN]).rstrip("\n")
-        PP["text"] = {"text": str(PPT)}
-        print("PP['text'] = " + str(PP["text"]))
-        SPNS["prompt"] = PP["text"]
-        print(str(SPNS))
-        PFJ[PN] = SPNS
-        PFJ2["content"] = PFJ
-        PFJ = PFJ2["content"]
-        #loop after first time writing a prompt
-        print(str(PN))
-        PN = PN + 1
-        print(str(PN))
-        print(str(SPNS))
-        while PN != 187:
-            print(str(PN))
-            SPNS = PFJ[PN]
-            PP = SPNS["prompt"]
-            PPT = str(PEL[PN]).rstrip("\n")
-            PP["text"] = {"text": str(PPT)}
-            print("PP['text'] = " + str(PP["text"]))
-            SPNS["prompt"] = PP["text"]
-            PFJ[PN] = SPNS
-            PFJ2["content"] = PFJ
-            PFJ = PFJ2["content"]
+            NPF = open("./STIContent to put in content/STIStorePrompt.jet","x")
+        #read original file
+        while PN != 58:
+            global OP
+            PFTD = open("./STIC.txt","r") #PFTD = Prompt file text dir
+            PFD = str(PFTD.read()) #PFD = Prompt file dir
+            OPF = open(str(PFD + "\STIStorePrompt.jet")) #OPF = Original prompt file
+            OP = OPF.read()
+            OPF.close()
+            PFTD.close() 
+            OPJ = json.loads(OP) #OPJ = Original prompts JSON OP = Original Prompts
+            MPJ2 = OPJ #needed for making the new file
+            OPJC = OPJ["content"] #OPJC = Original prompts json content
+            OP = OPJC[PN] #PN = Prompt number OP = Original Pormpt
+            #The read is cut, since we dont need the rest.
             PN = PN + 1
+            time.sleep(0.02)            
             print(str(PN))
-        #write finished file
-        json.dump(PFJ2,NPF)
-        
+        #make new file
+        PN = 0
+        while PN != 58: #original version (down below) has a first write, might be needed.
+            OP = OPJC[PN] #OPM = Original prompt
+            MP = OP
+            MPJC = OPJC
+            OPP = OP["prompt"] #OPP = original prompt prompt
+            PPM = OPP
+            OPPT = OPP["text"] #OPPT = original prompt prompt text
+            print(OPPT)
+            PPM = OPP
+            try: 
+                if PMT[PN] == None:
+                    PMT[PN] = OPPT
+                    print("On the fly none prompt!")
+                PPM["text"] = {"text": str(PMT[PN])} #PPM = Prompt prompt mod
+            except IndexError:
+                PMT[PN] = OPPT
+            print("PPM['text'] = " + str(PPM["text"]))
+            MP["prompt"] = PPM["text"] #MP = Mod Prompt
+            MPJC[PN] = MP #MPJC = Mod prompt json content
+            MPJ2["content"] = MPJC #MPJ = Mod prompt json
+            MPJC = MPJ2["content"]
+            PN = PN + 1
+            time.sleep(0.02)
+            print(str(PN))
+            print(PMT)
+        json.dump(MPJ2,NPF)   
 PPRun = PromptParser()
