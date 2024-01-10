@@ -77,7 +77,7 @@ class PromptParser:
             break
                 
 
-#Rewriting entire write method done!
+#Rewriting entire write method done! last test had issues, possible break.
 
     @staticmethod
     def newwrite(SPN,T):

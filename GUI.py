@@ -284,9 +284,12 @@ progress_bar.Update(x5)
 time.sleep(0.5)     
 window2.close()
 print("window2 close")
-STICWR = open("./STIC.txt","w")
-STICWR.write(str(str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content"))
-STICWR.close()
+try:
+    STICWR = open("./STIC.txt","w")
+    STICWR.write(str(str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content"))
+    STICWR.close()
+except IndexError:
+    print("we done goofed 292")
 FLC = open("./FL.txt","r")
 FLC = FLC.readline(1)
 if FLC == "True":
@@ -301,9 +304,7 @@ if Linux == True:
     ToolSR = [  [sg.Text("STIPhoto dir:"), sg.InputText(key='_STIPSRDIR_'),sg.Button("Set dir!",key="_SRSD_")],
                 [sg.Listbox(ImgFR,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST1L_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True),sg.VSeparator(),sg.Listbox(ImgFO,select_mode="LISTBOX_SELECT_MODE_SINGLE",key='_LIST2L_',background_color="#121212",sbar_background_color="#505050",sbar_trough_color="#636363",sbar_arrow_color="white",sbar_frame_color="#505050",expand_y=True,expand_x=True,enable_events=True)], #move seed settings to settings tab and auto-set seed to default.
                 [sg.Image(key="_SRRILIPL_"),sg.Text(arrow,auto_size_text=True),sg.Image(key="_SROILIPL_")],
-                [sg.Button("Replace!",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SRRBL_')],
-                [sg.Button("Reload files!",key="_SRRFL_",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
-                [sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
+                [sg.Button("Replace!",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_SRRBL_'),sg.Button("Reload files!",key="_SRRFL_",mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Quit', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold',key='_Q3_')] ]
     ToolWindow = [[sg.Frame('',ToolFR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_FRF_",element_justification="c",vertical_alignment="c",visible=True),
                    sg.Frame('',ToolSR,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_SRF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),
                    sg.Frame('',ToolO,background_color="#121212",relief=sg.RELIEF_FLAT,expand_x=True,expand_y=True,grab=False,border_width=0,key="_OF_",element_justification="c",vertical_alignment="c",visible=False, size=(500,200)),

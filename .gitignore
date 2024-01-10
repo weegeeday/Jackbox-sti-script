@@ -1,3 +1,10 @@
 #ignore OpenAI config file
 /*.ini
 OpenAI.ini
+#ignore 
+JPE.txt
+Library.json
+PLE.txt
+PPE.txt
+SPE.txt
+STIC.txt
