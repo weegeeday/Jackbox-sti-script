@@ -15,3 +15,6 @@ If you have any requests, suggestions or features youd want, make a [github issu
 # Linux Users, please read.
 You will need to manually put your STIphoto dir.<br />
 
+
+# To anyone trying to understand my code
+im sorry. good luck, my vars in this repo are terrible.
