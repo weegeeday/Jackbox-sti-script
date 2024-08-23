@@ -119,7 +119,7 @@ ToolPET = [[sg.Tab("Prompt",layout=ToolPETL1,background_color="#121212",key='_PE
 
 ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232",expand_x=True,expand_y=True,key='_PETABG_')],
           [sg.InputText(key="_PEIT_",expand_x=True,default_text="Text")],
-          [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Save',key='_PETLS_',mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
+          [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')], #sg.Button('Save',key='_PETLS_',mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
           [sg.Text("Changing tabs will reset progress.")]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
@@ -558,13 +558,13 @@ while True:
     if event == '_PEW_':
         print(SPN)
         print(T)
-        PromptParser.PromptParser.newwrite(SPN,T)
+        PromptParser.PromptParser.newwrite(SPN,T) # this needs to be updated for it to actually use the saved versions. the save function needs work, as of now its only one prompt.
         sg.popup("Done!")
     if event == '_PETLS_':
         print(selected_index)
-        T[int(selected_index)] = str(values['_PEIT_'])
+        T[int(selected_index)] = str(values['_PEIT_']) #as of looking at this, it fails to use this later..
         window['_PETLS_'].update('Saved!')
-        time.sleep(0.02)
+        time.sleep(5)
         window['_PETLS_'].update('Save')
     if event == '_PER_':
         PromptParser.PromptParser.read()
