@@ -559,15 +559,13 @@ while True:
     if event == '_PEW_':
         print(SPN)
         print(T)
-        PromptParser.PromptParser.newwrite(SPN,T) # this needs to be updated for it to actually use the saved versions. the save function needs work, as of now its only one prompt.
+        PromptParser.PromptParser.newwrite(SPN,T) #updated! fixed multiple writing bug
         sg.popup("Done!")
     if event == '_PETLS_':
         print(selected_index)
         T.insert(int(selected_index),str(values['_PEIT_']))
-        #T[int(selected_index)] = str(values['_PEIT_']) #note: this does work, the issue is that when multiple are added, it fails to add them all.
         window['_PETLS_'].update('Saved!')
         time.sleep(1)
-
         window['_PETLS_'].update('Save')
     if event == '_PER_':
         PromptParser.PromptParser.read()
