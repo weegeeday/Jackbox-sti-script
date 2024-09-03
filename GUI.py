@@ -64,6 +64,7 @@ global PETL3V
 global PETL4V
 global selected_index
 global SPN
+global T
 RRIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAQVQTFRFAAAAIdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8IdF8////////////////////////////////////////////////////////////////////IdF8IdF8////////////////////////////////GZ5dHrhtHrluHrdt////////////////////AAAAC0InF41TC0EmHrdtIdF8E3pIE3tJFHtIHKplFHpIHrhu////IdF8F5RXF5NXAAAAC0MnF41TC0InFolRGZtcHrluGZhaGZhaEF84AAAAHK5nFYNNE3FDHK9oHK5nGqJg////////vsxuNwAAAFd0Uk5TAClmzHoUXP+PUuDCcNaZoxA/DkAwIJC/r/83/sCAoLDvH+twX39QT2/wYN+rqqvQ3+DPnwFLqUysRxkZlv+Wq489vL0CJVUlLe7/7fN9C7WphLP++gEEFMFrdwAAAwlJREFUeJztlWlb00AQx1cQKyB1a7JpV7ObSJrCBmoO8BbFW+tt0e//UZzZpJA2WRoPHnh8+n/Rbmf2+M3s7JSQhRb6r3VpaRl1eeW8QRrpSusqWV1rFVo/b5xGugagrRNtnDdPE7UntGtLq2T1eut319POHx17w6rabNZw8UaBvGyc4XS73V7NEbksftruxrU3b1Vtrjhtq5LmF7IrLcvzTTk4nVmv5XbVUcfcNM+3C+ZNc8fQ4fOAENYPQ9yWMZYPyCDsa2baD7fwq0O3Q4tMvJO1Cj/s3GgzK+zTnJluhWF+B+DcypktEoV9NLHtkBmCOC7nJbKzO9S6s1PHDB+eFJLDIaIXC8+Hg6USMgZmlrgizTDnriN5VHinmIUSjorAkLkiznJm4QmROgT3cUScT+Z7UuB825ciTuqLpWBut1fI7j4a7t67/2CGea/T6aki5MDF84EoDYiNly6BWYKRApGFEUmcmkbTaxnHHCowpDAVvJPaQEek6HGAmJvIx/ygr54Z+9xm+yEOh4Q8ekyeHDx9NsOcuooPYEC3D7uZj/nJDxCAqutZEzpeXtvaOnlOk7Ui64AgRu2ADTTzIOx1IUwpTy4F04DbYPSmR7nRWn9eDIdk/8XLV6/fvB3OMOPV4mXH3sAKYD8hZpj1AfCrhhm+A3i/IhUoVjC7eW3EgYVXU57MyXzmkobv3o9GHz5++lzDTFKZE0Ul5ijBXIEhRoMnDczQPEiQTDbT9Ss1cwoXQAFOZFVmfXXpXOYvX0eog2/fa5gjzrB8WVJixhKmGRoSpmvZwGxxRlWI8YHBt+EdWJoZQ8VHzTgAsmlmkVj00FDPJY3Hmnk0HtcwY6IdnqhybZCBShS+QfD42AwNzJhoO+Zdjr3BUwmiIDMs5w4WwUD5iZpmJo5STn1tlPvb0ajQkSkqWvlzsCsDo6hVBFGaahctkbDa9Vg8VZn625mp6f+zHUKTTGtdpv52ZnKiZvOYdF2H1rpM/e3s9OPn3+5g6m8XWab+dpFl6m8XWfP720ILLfTP9QtdQXEF0cojawAAAABJRU5ErkJggg=="
 SRIcon = "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"
 SIcon = "iVBORw0KGgoAAAANSUhEUgAAALMAAAAeCAMAAABQSN/xAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAIdQTFRFAAAAHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVsHbVs////////////HbVs////////////////////////////////HbVs////////HbVs////////HbVs////////////////////////HbVsHbVs////////////////////////HbVs////XmilpwAAAC10Uk5TAGb/zDNcKdbrRxA/IHpgr7+PT0D/gB/A8MJwoJmwXzDPf2+the9Q0N/gkAqfi0rfYgAAAm1JREFUeJztl317siAUxpmr2dC5lGO4zKlrSvrs+3++5wBOa9nCrHV1Xd1/8CYHf+INKCF3XUcPltLDtTmG6BaZHzXz47U5zDSZPhHyZGtmW5ank2szHZNtzZ6fZ1YjVbbPODx13DOOpvVi9ejFLNZ7nc/nfvBrHwbhGSh3tJj1Mc8WJrEcIs45wI9m4M1VlV2A+a0P2bLeDEKXEMuMLn+07zJfQB2mvVrZXc0gNIEdp7L3ICXSv5A5jkPTDDBztZ9lkuZB098N8pS4DlW9P9pmY7WYa7TD4rN9AINQDmlXQUSUL72gxLjKQu0NTGKsFaXsWhZYfA2BYVSheg1k/oa2tYNX5sjojSygTdktBCM0VN7t8TODgqekjDayK2BXVxSSuarwsV1vKHOD2WzJE1VZmUUmOEWZz2Qx1nPOi0PMlXy6WnLGMiE0ktmp6/N0ZsJqoQ1BIs25lOi9zGq5loDmEFVzGZmj4p32jHtJZhT1IsB3C99iB5jDttxcVnPOInxT+VDsxY6f/6133G2kEhIEEUyLHmVuXom2CCnrCoqBG8eIfaMRk4zVpmtomJMDzBzUvArNTKShBrp6xP7Mtm5ZQ9m2i0xlod6+95g9VS6hZU6HMq/7z8G1QSjf+IETfEEkD40KcjxCfDndMfh57iLVPM/ZPjPO8Ffug9zdWfbhOEHW0htqxPeGJ9SqS9QuR2tZjuT2QONITWIots+UjpmihQWL0TqpGqEqf7tLn6Z9zFPDYMa2j8LtylGJSKaUsVM+VS/8/bwvtQRLqEcM8ef/KTzL80wfjOP0h/+DXsIFX45Hvsn/7ltkvusurf+e+jX6cSOldAAAAABJRU5ErkJggg=="
@@ -117,9 +118,9 @@ ToolPETL4 = [[sg.Listbox(PETL4V,key="_PETL4K_",select_mode="LISTBOX_SELECT_MODE_
 ToolPET = [[sg.Tab("Prompt",layout=ToolPETL1,background_color="#121212",key='_PETL1T_'),sg.Tab("Job",layout=ToolPETL2,background_color="#121212",key='_PETL2T_'),sg.Tab("Photo",layout=ToolPETL3,background_color="#121212",key='_PETL3T_'),sg.Tab("Store",layout=ToolPETL4,background_color="#121212",key='_PETL4T_')]]
 
 
-ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232",expand_x=True,expand_y=True,key='_PETABG_')],
+ToolPE = [[sg.TabGroup(ToolPET,selected_background_color="#323232",expand_x=True,expand_y=True,key='_PETABG_',enable_events=True)],
           [sg.InputText(key="_PEIT_",expand_x=True,default_text="Text")],
-          [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')], #sg.Button('Save',key='_PETLS_',mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
+          [sg.Button('Read',key='_PER_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'),sg.Button('Write',key='_PEW_', mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold'), sg.Button('Save',key='_PETLS_',mouseover_colors=("#c394fc","#BB86FC"),font='_ 9 bold')],
           [sg.Text("Changing tabs will reset progress.")]]
 
 ToolSelect = [ [sg.Canvas(background_color="#121212",size=(10,10),key='_c1_')],
@@ -562,9 +563,11 @@ while True:
         sg.popup("Done!")
     if event == '_PETLS_':
         print(selected_index)
-        T[int(selected_index)] = str(values['_PEIT_']) #as of looking at this, it fails to use this later..
+        T.insert(int(selected_index),str(values['_PEIT_']))
+        #T[int(selected_index)] = str(values['_PEIT_']) #note: this does work, the issue is that when multiple are added, it fails to add them all.
         window['_PETLS_'].update('Saved!')
-        time.sleep(5)
+        time.sleep(1)
+
         window['_PETLS_'].update('Save')
     if event == '_PER_':
         PromptParser.PromptParser.read()
@@ -586,28 +589,27 @@ while True:
         window['_PEIT_'].update(values[0])
         selected_indices = window['_PETL1K_'].GetIndexes()
         selected_index = selected_indices[0]
-        T = [None] * 200
         SPN = 1
     if event == '_PETL2K_':
         values[0] = str(values['_PETL2K_'][0])
         window['_PEIT_'].update(values[0])
         selected_indices = window['_PETL2K_'].GetIndexes()
         selected_index = selected_indices[0]
-        T = [None] * 200
         SPN = 2
     if event == '_PETL3K_':
         values[0] = str(values['_PETL3K_'][0])
         window['_PEIT_'].update(values[0])
         selected_indices= window['_PETL3K_'].GetIndexes()
         selected_index = selected_indices[0]
-        T = [None] * 200
         SPN = 3
     if event == '_PETL4K_':
         values[0] = str(values['_PETL4K_'][0])
         window['_PEIT_'].update(values[0])
         selected_indices = window['_PETL4K_'].GetIndexes()
         selected_index = selected_indices[0]
-        T = [None] * 200
         SPN = 4
+    if event == '_PETABG_':
+        print("tab change")
+        T = [None] * 200
 print("window close")
 window.close()
