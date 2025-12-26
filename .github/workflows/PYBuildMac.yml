@@ -41,7 +41,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          pip install PySimpleGUI
+          pip install FreeSimpleGUI
           pip install PyInstaller
           pip install Pillow
           pip install vdf
