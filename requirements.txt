@@ -1,3 +1,3 @@
 Pillow
-pysimplegui
+FreeSimpleGUI
 vdf

@@ -3,7 +3,7 @@ from random import seed
 from random import randint
 import os
 import time
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 randnO = 0
 ImgNbR = 0
 randnR = 0

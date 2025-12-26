@@ -1,4 +1,4 @@
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 Tab1 = [[sg.Text("Hello World! 1")]]
 Tab2 = [[sg.Text("Hello World! 2")]]
 Tab3 = [[sg.Text("Hello World! 3")]]

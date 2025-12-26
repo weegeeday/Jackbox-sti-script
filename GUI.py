@@ -2,7 +2,7 @@ from json import JSONDecoder
 import json
 import webbrowser
 import time
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 import os
 from PIL import Image
 PREP1 = open("./Library.json", "w")
