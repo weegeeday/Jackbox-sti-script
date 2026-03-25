@@ -83,6 +83,7 @@ sg.theme_element_background_color("#121212")
 sg.theme_text_element_background_color("#121212")
 dir = "./Replacement Images"
 T = [None] * 200
+SPN = 1
 print(T)
 ImgR = next(os.walk(dir))[2]
 imgC = len(ImgR)
@@ -609,5 +610,14 @@ while True:
     if event == '_PETABG_':
         print("tab change")
         T = [None] * 200
+        selected_tab = values.get('_PETABG_')
+        if selected_tab == '_PETL1T_':
+            SPN = 1
+        elif selected_tab == '_PETL2T_':
+            SPN = 2
+        elif selected_tab == '_PETL3T_':
+            SPN = 3
+        elif selected_tab == '_PETL4T_':
+            SPN = 4
 print("window close")
 window.close()
