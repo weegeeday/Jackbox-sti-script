@@ -82,7 +82,6 @@ sg.theme_button_color(("#000000","#BB86FC"))
 sg.theme_element_background_color("#121212")
 sg.theme_text_element_background_color("#121212")
 dir = "./Replacement Images"
-dir_name = "./"
 T = [None] * 200
 SPN = 1
 print(T)
