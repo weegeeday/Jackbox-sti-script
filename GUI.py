@@ -297,6 +297,12 @@ except FileNotFoundError:
         x4 = x2 + x3/2
         x5 = x4 + x3/2
         z = z - 1
+    except Exception as e:
+        print("Something went wrong.")
+        print(e)
+        NoSteam = True
+        Linux = False
+        #will need to manually set STIPhoto directory.
 time.sleep(0.5)
 progress_bar.Update(x4)
 time.sleep(0.5)
@@ -304,9 +310,22 @@ progress_bar.Update(x5)
 time.sleep(0.5)     
 window2.close()
 print("window2 close")
-STICWR = open("./STIC.txt","w")
-STICWR.write(str(str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content"))
-STICWR.close()
+if Linux == False:
+    STICWR = open("./STIC.txt","w")
+    STICWR.write(str(str(SteamLibrary[z]) + "\\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content"))
+    STICWR.close()
+if NoSteam == True:
+    sg.popup_error_with_traceback("STI GUI Error","Hi! It seems as you are running the GUI script without Steam installed.","You will need to manually set STIPhoto directory.","ex: \\steamapps\\common\\The Jackbox Party Pack 4\\games\\SurviveTheInternet\\content\\STIPhoto")
+    # ask user for STIPhoto directory, then write it to STIC.txt
+    STIPSRDIR = sg.popup_get_folder("Please select the STIPhoto directory:")
+    STICWR = open("./STIC.txt","w")
+    STICWR.write(STIPSRDIR)
+    STICWR.close()
+if Linux == True:
+    STIPSRDIR = sg.popup_get_folder("Please select the STIPhoto directory:")
+    STICWR = open("./STIC.txt","w")
+    STICWR.write(STIPSRDIR)
+    STICWR.close()
 FLC = open("./FL.txt","r")
 FLC = FLC.readline(1)
 if FLC == "True":
